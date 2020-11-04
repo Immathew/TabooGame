@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".game.GameFragment">
+
+    <data>
+        <variable
+            name="gameViewModel"
+            type="com.example.taboogame.game.GameViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/team_one_score_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{@string/score_format(gameViewModel.teamOneScore)}"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            tools:text="25"
+            app:layout_constraintBottom_toBottomOf="@+id/timer_text"
+            app:layout_constraintEnd_toStartOf="@+id/timer_text"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/team_two_score_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@{@string/score_format(gameViewModel.teamTwoScore)}"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/timer_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/timer_text"
+            tools:text="25" />
+
+        <ImageButton
+            android:id="@+id/pause_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:src="@android:drawable/ic_media_pause"
+            android:contentDescription="@string/pause_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/timer_text" />
+
+        <TextView
+            android:id="@+id/forbidden_words_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/forbidden_words_header"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/word_to_guess" />
+
+        <TextView
+            android:id="@+id/forbidden_word_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            tools:text="TextView"
+            android:text="@{gameViewModel.guessWord.forbiddenWordOne}"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forbidden_words_header" />
+
+        <TextView
+            android:id="@+id/forbidden_word_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            tools:text="TextView"
+            android:text="@{gameViewModel.guessWord.forbiddenWordTwo}"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forbidden_word_one" />
+
+        <TextView
+            android:id="@+id/forbidden_word_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            tools:text="TextView"
+            android:text="@{gameViewModel.guessWord.forbiddenWordFour}"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forbidden_word_three" />
+
+        <TextView
+            android:id="@+id/forbidden_word_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            tools:text="TextView"
+            android:text="@{gameViewModel.guessWord.forbiddenWordThree}"            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forbidden_word_two" />
+
+        <TextView
+            android:id="@+id/word_to_guess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@{gameViewModel.guessWord.wordToGuess}"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pause_button"
+            tools:text="TextView" />
+
+        <TextView
+            android:id="@+id/timer_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@{gameViewModel.currentTimeString}"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/next_word_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_play"
+
+            app:layout_constraintBottom_toBottomOf="@+id/skip_word_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/skip_word_button" />
+
+        <ImageButton
+            android:id="@+id/skip_word_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:onClick="@{()-> gameViewModel.skipWord()}"
+            android:src="@android:drawable/ic_menu_revert"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/forbidden_word_four" />
+
+        <ImageButton
+            android:id="@+id/skip_word_minus_point_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_delete"
+            android:onClick="@{()-> gameViewModel.skipWordAndLosePoint()}"
+            app:layout_constraintBottom_toBottomOf="@+id/skip_word_button"
+            app:layout_constraintEnd_toStartOf="@+id/skip_word_button"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/team_one_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/team_one_name"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/team_one_score_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/team_one_score_text" />
+
+        <TextView
+            android:id="@+id/team_two_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/team_two_name"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/team_two_score_text"
+            app:layout_constraintTop_toTopOf="@+id/team_two_score_text" />
+
+        <TextView
+            android:id="@+id/team_one_skip_points_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            tools:text="3"
+            android:text="@{@string/score_format(gameViewModel.teamOneWordsSkipped)}"
+            app:layout_constraintEnd_toStartOf="@+id/skip_points_image"
+            app:layout_constraintStart_toStartOf="@+id/team_one_name"
+            app:layout_constraintTop_toBottomOf="@+id/team_one_name" />
+
+        <ImageView
+            android:id="@+id/skip_points_image"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@android:drawable/ic_menu_revert"
+            app:layout_constraintBottom_toBottomOf="@+id/team_one_skip_points_text"
+            app:layout_constraintEnd_toEndOf="@+id/team_one_name"
+            app:layout_constraintTop_toTopOf="@+id/team_one_skip_points_text" />
+
+        <ImageView
+            android:id="@+id/skip_points_image2"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:src="@android:drawable/ic_menu_revert"
+            app:layout_constraintBottom_toBottomOf="@+id/team_two_skip_points_text"
+            app:layout_constraintStart_toStartOf="@+id/team_two_name"
+            app:layout_constraintTop_toBottomOf="@+id/team_two_name" />
+
+        <TextView
+            android:id="@+id/team_two_skip_points_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="@{@string/score_format(gameViewModel.teamTwoWordsSkipped)}"
+            app:layout_constraintEnd_toEndOf="@+id/team_two_name"
+            app:layout_constraintStart_toEndOf="@+id/skip_points_image2"
+            app:layout_constraintTop_toBottomOf="@id/team_two_name"
+            tools:text="3" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

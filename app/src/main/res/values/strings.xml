@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">TabooGame</string>
+    <string name="title">Taboo Game</string>
+    <string name="rules_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer
+        took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+        but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+        with the release of Letraset sheets containing Lorem Ipsum.</string>
+    <string name="start_button">Start</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_button">USTAWIENIA</string>
+    <string name="rules_button">ZASADY GRY</string>
+    <string name="pick_time_for_round">Wybierz czas jednej rundy</string>
+    <string name="pick_one_minute">1:00</string>
+    <string name="pick_minute_and_a_half">1:30</string>
+    <string name="pick_two_minutes">2:00</string>
+    <string name="skip_number">Wybierz ilość pominięć</string>
+    <string name="skip_3">3</string>
+    <string name="skip_5">5</string>
+    <string name="skip_10">10</string>
+    <string name="points_limit">Wybierz limit punktów</string>
+    <string name="limit_points_20">20</string>
+    <string name="limit_points_30">30</string>
+    <string name="limit_points_50">50</string>
+    <string name="start_the_game_button">Rozpocznij zabawe</string>
+    <string name="forbidden_words_header">ZAKAZANE SŁOWA</string>
+    <string name="pause_button">pause_button</string>
+    <string name="end_the_game_button">ZAKOŃCZ GRĘ</string>
+    <string name="resume_button">WRÓĆ DO GRY</string>
+    <string name="end_game_header">KONIEC GRY</string>
+    <string name="play_again">ZAGRAJ PONOWNIE</string>
+    <string name="score_format">%d</string>
+    <string name="team_two_name">Team 2</string>
+    <string name="team_one_name">Team 1</string>
+    <string name="dialog_message">asddadddd</string>
+    <string name="end_round_header_text">Koniec rundy</string>
+
+</resources>
