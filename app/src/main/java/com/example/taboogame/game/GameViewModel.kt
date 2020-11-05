@@ -17,7 +17,7 @@ class GameViewModel: ViewModel() {
     companion object {
         const val DONE = 0L
         const val ONE_SECOND = 1000L
-        const val  COUNTDOWN_TIME = 20000L
+        const val COUNTDOWN_TIME = 10000L
     }
     
     var timer: CountDownTimer
@@ -29,8 +29,9 @@ class GameViewModel: ViewModel() {
     val currentTimeString = Transformations.map(currentTime) { time ->
         DateUtils.formatElapsedTime((time))
     }
-    var oneRoundTime = COUNTDOWN_TIME
-    var timeLeftOnPause = 0L
+
+    private var timeLeftOnPause = COUNTDOWN_TIME
+    private var timeToShow = COUNTDOWN_TIME
 
     private val _nextRoundActive = MutableLiveData<Boolean>()
     val nextRoundActive: LiveData<Boolean>
@@ -49,12 +50,12 @@ class GameViewModel: ViewModel() {
         get() = _teamTwoScore
 
     val teamOneName = ""
-    var teamOneActive = true
+    private var teamOneActive = true
 
     val teamTwoName = ""
-    var teamTwoActive = false
+    private var teamTwoActive = false
 
-    var numberOfSkipsAvailable = 3
+    private var numberOfSkipsAvailable = 3
 
     private val _teamOneWordsSkipped = MutableLiveData<Int>()
     val teamOneWordsSkipped: LiveData<Int>
@@ -82,43 +83,47 @@ init {
     _teamOneWordsSkipped.value = numberOfSkipsAvailable
     _teamTwoWordsSkipped.value = numberOfSkipsAvailable
     _nextRoundActive.value = false
-     timeLeftOnPause
-
 
     updateGuessWord()
 
-    timer = object : CountDownTimer(oneRoundTime, ONE_SECOND) {
-
+    timer = object : CountDownTimer(timeLeftOnPause, ONE_SECOND) {
         override fun onTick(millisUntilFinished: Long) {
-            _currentTime.value = (millisUntilFinished / ONE_SECOND)
-            timeLeftOnPause = oneRoundTime - 1000L
-        }
+            _currentTime.value = (timeToShow / ONE_SECOND)
+            timeToShow -= 1000L
 
-        override fun onFinish() {
-            _currentTime.value = DONE
-            _teamOneUsedAllSkipWords.value = false
-            _teamTwoUsedAllSkipWords.value = false
-            _nextRoundActive.value = true
-
-            if(teamOneActive){
-                teamOneActive = false
-                teamTwoActive = true
+            if (timeLeftOnPause <= 0) {
+                timeLeftOnPause = 0
+                endTimer()
             } else {
-                teamOneActive = true
-                teamTwoActive = false
+                timeLeftOnPause -= 1000L
             }
         }
+        override fun onFinish() {
+            _currentTime.value = DONE
+            switchTeams()
+            _nextRoundActive.value = true
+        }
     }
-    timer.start()
 }
 
     fun restartTimer () {
-        oneRoundTime = COUNTDOWN_TIME
-        timer.start()
+        restartTimerObject()
         _nextRoundActive.value = false
+        disableSkipWords()
     }
 
-     fun nextWord() {
+    private fun restartTimerObject() {
+        timeLeftOnPause= COUNTDOWN_TIME
+        timeToShow = COUNTDOWN_TIME
+        timer.start()
+    }
+
+    private fun endTimer () {
+        timer.onFinish()
+        timer.cancel()
+    }
+
+    fun nextWord() {
         if (guessWordList.isEmpty()) {
             guessWordList = WordsToGuessList.allWords()
         }
@@ -130,29 +135,28 @@ init {
     fun skipWord() {
         if (guessWordList.isEmpty()) {
             guessWordList = WordsToGuessList.allWords()
-        } else {
-            updateGuessWord()
         }
         disableSkipWords()
+        updateGuessWord()
     }
 
     fun skipWordAndLosePoint() {
         if (guessWordList.isEmpty()) {
             guessWordList = WordsToGuessList.allWords()
-        } else {
-            updateGuessWord()
         }
+        updateGuessWord()
         substractTeamOneScore()
         substractTeamTwoScore()
     }
 
-    fun updateTimeOnPause() {
-        oneRoundTime = timeLeftOnPause
-
-    }
-
-    fun resumeTimer() {
-        timer.start()
+    private fun switchTeams() {
+        if(teamOneActive){
+            teamOneActive = false
+            teamTwoActive = true
+        } else {
+            teamOneActive = true
+            teamTwoActive = false
+        }
     }
 
     private fun addTeamOneScore() {
@@ -184,12 +188,13 @@ init {
         guessWordList.removeAt(0)
     }
 
-    private fun disableSkipWords(){
-        if (teamOneActive){
+    private fun disableSkipWords() {
+        if (teamOneActive) {
             if (1 >= _teamOneWordsSkipped.value ?: 0) {
                 _teamOneUsedAllSkipWords.value = true
                 _teamOneWordsSkipped.value = 0
             }else {
+                _teamOneUsedAllSkipWords.value = false
                 _teamOneWordsSkipped.value = teamOneWordsSkipped.value?.minus(1)
             }
         }
@@ -198,6 +203,7 @@ init {
                 _teamTwoUsedAllSkipWords.value = true
                 _teamTwoWordsSkipped.value = 0
             }else {
+                _teamTwoUsedAllSkipWords.value = false
                 _teamTwoWordsSkipped.value = teamTwoWordsSkipped.value?.minus(1)
             }
         }
