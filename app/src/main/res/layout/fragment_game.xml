@@ -142,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_media_play"
-
+            android:onClick="@{()-> gameViewModel.nextWord()}"
             app:layout_constraintBottom_toBottomOf="@+id/skip_word_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/skip_word_button" />
@@ -153,6 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:onClick="@{()-> gameViewModel.skipWord()}"
+            android:clickable="false"
             android:src="@android:drawable/ic_menu_revert"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

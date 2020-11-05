@@ -1,9 +1,8 @@
 package com.example.taboogame.game
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
-import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.next_round_popup_window.*
 
 class GameFragment : Fragment() {
 
-    // TODO POP UP WINDOW WITH SCORE AND MOVES TO THE NEXT ROUND
+
     // TODO DATA TRANSFER FROM GAME CONFIGURATION
 
     private lateinit var viewModel: GameViewModel
@@ -36,9 +35,10 @@ class GameFragment : Fragment() {
         binding.gameViewModel = viewModel
         binding.lifecycleOwner = this
 
+        viewModel.timer.start()
 
         binding.pauseButton.setOnClickListener{ view: View ->
-
+            viewModel.timer.cancel()
             view.findNavController().navigate(R.id.action_gameFragment_to_pauseScreenFragment)
         }
 
@@ -51,13 +51,15 @@ class GameFragment : Fragment() {
 
         viewModel.nextRoundActive.observe(viewLifecycleOwner,{isActive ->
             if (isActive) {
-             popUpWindow()
+                viewModel.timer.cancel()
+                popUpWindow()
             }
         })
 
         return binding.root
     }
 
+    @SuppressLint("InflateParams")
     private fun popUpWindow(){
         val builder: AlertDialog.Builder? = activity?.let {
             AlertDialog.Builder(it)
@@ -74,25 +76,7 @@ class GameFragment : Fragment() {
         }
     }
 
-//    override fun onPause() {
-//        super.onPause()
-//        viewModel.updateTimeOnPause()
-//        viewModel.resumeTimer()
-//    }
 
-    override fun onResume() {
-        super.onResume()
 
-    }
-
-    override fun onStop() {
-        super.onStop()
-        viewModel.updateTimeOnPause()
-    }
-
-    //    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-//        super.onViewStateRestored(savedInstanceState)
-//        viewModel.resumeTimer()
-//    }
 }
 

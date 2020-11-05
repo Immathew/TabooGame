@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_game_configuration.view.*
 class GameConfigurationFragment : Fragment() {
 
 
-
     private var roundTime = 60000L
     private var skipAvailable = 3
     private var pointsLimit = 20
