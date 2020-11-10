@@ -10,16 +10,16 @@ import com.example.taboogame.data.GuessWord
 import com.example.taboogame.data.WordsToGuessList
 
 
-class GameViewModel: ViewModel() {
+class GameViewModel(roundTime: Long, skipAvailable: Int, pointsLimit: Int): ViewModel() {
 
     private var guessWordList: ArrayList<GuessWord>
 
-    companion object {
-        const val DONE = 0L
-        const val ONE_SECOND = 1000L
-        const val COUNTDOWN_TIME = 10000L
-    }
-    
+    private val DONE = 0L
+    private val ONE_SECOND = 1000L
+    private var COUNTDOWN_TIME= roundTime
+    private var numberOfSkipsAvailable = skipAvailable
+    private var pointsLimit = pointsLimit
+
     var timer: CountDownTimer
 
     private val _currentTime = MutableLiveData<Long>()
@@ -49,13 +49,8 @@ class GameViewModel: ViewModel() {
     val teamTwoScore: LiveData<Int>
         get() = _teamTwoScore
 
-    val teamOneName = ""
     private var teamOneActive = true
-
-    val teamTwoName = ""
     private var teamTwoActive = false
-
-    private var numberOfSkipsAvailable = 3
 
     private val _teamOneWordsSkipped = MutableLiveData<Int>()
     val teamOneWordsSkipped: LiveData<Int>
@@ -73,6 +68,10 @@ class GameViewModel: ViewModel() {
     val teamTwoUsedAllSkipWords: LiveData<Boolean>
         get() = _teamTwoUsedAllSkipWords
 
+    private val _gameFinished = MutableLiveData<Boolean>()
+    val gameFinished: LiveData<Boolean>
+        get() = _gameFinished
+
 init {
     guessWordList = WordsToGuessList.allWords()
     _guessWord.value = guessWordList[0]
@@ -83,6 +82,7 @@ init {
     _teamOneWordsSkipped.value = numberOfSkipsAvailable
     _teamTwoWordsSkipped.value = numberOfSkipsAvailable
     _nextRoundActive.value = false
+    _gameFinished.value = false
 
     updateGuessWord()
 
@@ -130,6 +130,7 @@ init {
         updateGuessWord()
         addTeamOneScore()
         addTeamTwoScore()
+        isGameFinished()
     }
 
     fun skipWord() {
@@ -206,6 +207,12 @@ init {
                 _teamTwoUsedAllSkipWords.value = false
                 _teamTwoWordsSkipped.value = teamTwoWordsSkipped.value?.minus(1)
             }
+        }
+    }
+
+    private fun isGameFinished() {
+        if (teamOneScore.value == pointsLimit || teamTwoScore.value == pointsLimit) {
+            _gameFinished.value = true
         }
     }
 }

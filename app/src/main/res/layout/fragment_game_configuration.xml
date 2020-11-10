@@ -36,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pick_one_minute"
+                android:textColor="#FF0000"
                 />
 
             <Button
@@ -72,7 +73,9 @@
                 android:id="@+id/skip_3_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/skip_3" />
+                android:text="@string/skip_3"
+                android:textColor="#FF0000"
+                />
 
             <Button
                 android:id="@+id/skip_5_button"
@@ -106,7 +109,9 @@
                 android:id="@+id/points_20_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/limit_points_20" />
+                android:text="@string/limit_points_20"
+                android:textColor="#FF0000"
+                />
 
             <Button
                 android:id="@+id/points_30_button"

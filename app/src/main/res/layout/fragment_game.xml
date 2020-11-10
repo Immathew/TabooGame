@@ -13,7 +13,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="5dp">
 
 
         <TextView
@@ -172,7 +173,9 @@
 
         <TextView
             android:id="@+id/team_one_name"
-            android:layout_width="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="@string/team_one_name"
             android:textSize="18sp"
@@ -182,7 +185,9 @@
 
         <TextView
             android:id="@+id/team_two_name"
-            android:layout_width="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="@string/team_two_name"
             android:textSize="18sp"

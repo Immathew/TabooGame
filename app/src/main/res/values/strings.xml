@@ -33,7 +33,10 @@
     <string name="score_format">%d</string>
     <string name="team_two_name">Team 2</string>
     <string name="team_one_name">Team 1</string>
-    <string name="dialog_message">asddadddd</string>
     <string name="end_round_header_text">Koniec rundy</string>
+    <string name="end_round_header">Koniec rundy?</string>
+    <string name="do_you_want_to_exit_round">Czy na pewno chcesz wyjść?
+        \n\Stracisz wtedy wszystkie zapisane ustawienia.</string>
+    <string name="end_round_button">Zakończ rundę</string>
 
 </resources>

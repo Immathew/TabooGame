@@ -11,7 +11,8 @@
         tools:layout="@layout/fragment_title" >
         <action
             android:id="@+id/action_titleFragment_to_gameConfigurationFragment"
-            app:destination="@id/gameConfigurationFragment" />
+            app:destination="@id/gameConfigurationFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_titleFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
@@ -26,10 +27,27 @@
         tools:layout="@layout/fragment_game" >
         <action
             android:id="@+id/action_gameFragment_to_gameFinishedFragment"
-            app:destination="@id/gameFinishedFragment" />
+            app:destination="@id/gameFinishedFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_gameFragment_to_pauseScreenFragment"
-            app:destination="@id/pauseScreenFragment" />
+            app:destination="@id/pauseScreenFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="roundTime"
+            app:argType="long" />
+        <argument
+            android:name="skipAvailable"
+            app:argType="integer" />
+        <argument
+            android:name="pointsLimit"
+            app:argType="integer" />
+        <argument
+            android:name="teamOneName"
+            app:argType="string" />
+        <argument
+            android:name="teamTwoName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/gameConfigurationFragment"
@@ -39,6 +57,12 @@
         <action
             android:id="@+id/action_gameConfigurationFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
+        <argument
+            android:name="teamOneName"
+            app:argType="string" />
+        <argument
+            android:name="teamTwoName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/gameFinishedFragment"
@@ -48,8 +72,20 @@
         <action
             android:id="@+id/action_gameFinishedFragment_to_gameConfigurationFragment"
             app:destination="@id/gameConfigurationFragment"
-            app:popUpTo="@+id/gameConfigurationFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/gameConfigurationFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="teamOneName"
+            app:argType="string" />
+        <argument
+            android:name="teamTwoName"
+            app:argType="string" />
+        <argument
+            android:name="teamOneScore"
+            app:argType="integer" />
+        <argument
+            android:name="teamTwoScore"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/pauseScreenFragment"
@@ -62,11 +98,26 @@
         <action
             android:id="@+id/action_pauseScreenFragment_to_gameFinishedFragment"
             app:destination="@id/gameFinishedFragment" />
+        <argument
+            android:name="teamOneName"
+            app:argType="string" />
+        <argument
+            android:name="teamTwoName"
+            app:argType="string" />
+        <argument
+            android:name="teamOneScore"
+            app:argType="integer" />
+        <argument
+            android:name="teamTwoScore"
+            app:argType="integer" />
         <action
-            android:id="@+id/action_pauseScreenFragment_to_gameFragment2"
-            app:destination="@id/gameFragment"
-            app:popUpTo="@id/gameFragment"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_pauseScreenFragment_to_gameConfigurationFragment"
+            app:destination="@id/gameConfigurationFragment"
+            app:popUpTo="@id/gameConfigurationFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="currentTime"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

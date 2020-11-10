@@ -1,8 +1,9 @@
 package com.example.taboogame.game
 
-import android.content.res.ColorStateList
+
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.example.taboogame.R
-import com.example.taboogame.databinding.FragmentGameBinding
 import com.example.taboogame.databinding.FragmentGameConfigurationBinding
 import kotlinx.android.synthetic.main.fragment_game_configuration.*
-import kotlinx.android.synthetic.main.fragment_game_configuration.view.*
 
 
 class GameConfigurationFragment : Fragment() {
@@ -22,8 +21,8 @@ class GameConfigurationFragment : Fragment() {
     private var roundTime = 60000L
     private var skipAvailable = 3
     private var pointsLimit = 20
-    private var teamOneName ="Team 1"
-    private var teamTwoName="Team 2"
+    private var teamOneName = "Team 1"
+    private var teamTwoName = "Team 2"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,9 +31,13 @@ class GameConfigurationFragment : Fragment() {
         val binding: FragmentGameConfigurationBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_game_configuration, container, false)
 
+        setStartingConfiguration()
+
         binding.startTheGameButton.setOnClickListener{view: View ->
-            Navigation.findNavController(view).navigate(R.id.action_gameConfigurationFragment_to_gameFragment)
             addTeamNames()
+            Navigation.findNavController(view)
+                .navigate(GameConfigurationFragmentDirections.actionGameConfigurationFragmentToGameFragment(
+                    roundTime, skipAvailable, pointsLimit, teamOneName, teamTwoName))
         }
 
         //Set time buttons
@@ -91,22 +94,28 @@ class GameConfigurationFragment : Fragment() {
         return binding.root
     }
 
+    private fun setStartingConfiguration() {
+        roundTime = 60000L
+        skipAvailable = 3
+        pointsLimit = 20
+    }
+
     private fun resetTimeButtons() {
-        one_minute_button.setTextColor(Color.BLACK)
-        minute_and_a_half_button.setTextColor(Color.BLACK)
-        two_minutes_button.setTextColor(Color.BLACK)
+        one_minute_button.setTextColor(Color.WHITE)
+        minute_and_a_half_button.setTextColor(Color.WHITE)
+        two_minutes_button.setTextColor(Color.WHITE)
     }
 
     private fun resetSkipButtons() {
-        skip_3_button.setTextColor(Color.BLACK)
-        skip_5_button.setTextColor(Color.BLACK)
-        skip_10_button.setTextColor(Color.BLACK)
+        skip_3_button.setTextColor(Color.WHITE)
+        skip_5_button.setTextColor(Color.WHITE)
+        skip_10_button.setTextColor(Color.WHITE)
     }
 
     private fun resetPointsLimitButton() {
-        points_20_button.setTextColor(Color.BLACK)
-        points_30_button.setTextColor(Color.BLACK)
-        points_50_button.setTextColor(Color.BLACK)
+        points_20_button.setTextColor(Color.WHITE)
+        points_30_button.setTextColor(Color.WHITE)
+        points_50_button.setTextColor(Color.WHITE)
     }
 
     private fun addTeamNames() {
