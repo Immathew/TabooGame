@@ -48,6 +48,9 @@
         <argument
             android:name="teamTwoName"
             app:argType="string" />
+        <argument
+            android:name="vibration"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/gameConfigurationFragment"
@@ -57,12 +60,6 @@
         <action
             android:id="@+id/action_gameConfigurationFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
-        <argument
-            android:name="teamOneName"
-            app:argType="string" />
-        <argument
-            android:name="teamTwoName"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/gameFinishedFragment"
@@ -89,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/pauseScreenFragment"
-        android:name="com.example.taboogame.PauseScreenFragment"
+        android:name="com.example.taboogame.game.PauseScreenFragment"
         android:label="fragment_pause_screen"
         tools:layout="@layout/fragment_pause_screen" >
         <action

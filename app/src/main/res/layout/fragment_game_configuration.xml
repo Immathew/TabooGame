@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -13,14 +14,16 @@
         android:layout_height="match_parent"
         tools:context=".game.GameConfigurationFragment"
         android:orientation="vertical"
-        android:background="@color/cardview_shadow_start_color">
+        >
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:gravity="center"
-                android:background="@color/design_default_color_secondary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:background="@android:color/transparent"
                 android:text="@string/pick_time_for_round" />
 
 
@@ -29,15 +32,15 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent">
 
             <Button
                 android:id="@+id/one_minute_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pick_one_minute"
-                android:textColor="#FF0000"
-                />
+                android:backgroundTint="@color/gray"
+                android:text="@string/pick_one_minute" />
 
             <Button
                 android:id="@+id/minute_and_a_half_button"
@@ -59,7 +62,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:gravity="center"
-                android:background="@color/design_default_color_secondary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:background="@android:color/transparent"
                 android:text="@string/skip_number" />
 
         <LinearLayout
@@ -67,14 +72,16 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent"
+            >
 
             <Button
                 android:id="@+id/skip_3_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/skip_3"
-                android:textColor="#FF0000"
+                android:backgroundTint="@color/gray"
                 />
 
             <Button
@@ -95,29 +102,34 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:gravity="center"
-                android:background="@color/design_default_color_secondary"
-                android:text="@string/points_limit" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:background="@android:color/transparent"
+                android:text="@string/points_limit"
+                />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:background="@android:color/transparent">
 
             <Button
                 android:id="@+id/points_20_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/limit_points_20"
-                android:textColor="#FF0000"
+                android:backgroundTint="@color/gray"
                 />
 
             <Button
                 android:id="@+id/points_30_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/limit_points_30" />
+                android:text="@string/limit_points_30"
+                />
 
             <Button
                 android:id="@+id/points_50_button"
@@ -131,8 +143,10 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:gravity="center"
-            android:background="@color/design_default_color_secondary"
-            android:text="@string/team_two_name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            android:text="@string/teams_name"
             android:layout_marginBottom="8dp"/>
 
 

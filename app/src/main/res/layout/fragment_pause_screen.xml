@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".PauseScreenFragment">
+    tools:context=".game.PauseScreenFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +16,9 @@
             android:layout_marginEnd="16dp"
             android:textSize="36sp"
             android:textStyle="bold"
+            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="@+id/timer_text"
+            app:layout_constraintHorizontal_bias="0.211"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/timer_text"
             tools:text="25" />
@@ -28,8 +30,10 @@
             android:layout_marginStart="16dp"
             android:textSize="36sp"
             android:textStyle="bold"
+            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="@+id/timer_text"
             app:layout_constraintEnd_toStartOf="@+id/timer_text"
+            app:layout_constraintHorizontal_bias="0.789"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="25" />
 
@@ -40,6 +44,7 @@
             android:layout_marginTop="32dp"
             android:textSize="30sp"
             android:textStyle="bold"
+            android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,10 +52,14 @@
 
         <ImageButton
             android:id="@+id/play_game_img_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="69dp"
+            android:layout_height="63dp"
             android:layout_marginTop="24dp"
-            android:src="@android:drawable/ic_media_play"
+            android:background="@android:color/transparent"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/play_button1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timer_text" />
@@ -90,11 +99,12 @@
 
 
         <TextView
-            android:id="@+id/team_one_name"
+            android:id="@+id/team_one_name_inPause"
             android:ellipsize="end"
             android:maxLines="1"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:text="@string/team_one_name"
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/team_one_score_text"
@@ -102,20 +112,17 @@
             app:layout_constraintTop_toTopOf="@+id/team_one_score_text" />
 
         <TextView
-            android:id="@+id/team_two_name"
+            android:id="@+id/team_two_name_inPause"
             android:ellipsize="end"
             android:maxLines="1"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="@string/team_two_name"
             android:textSize="18sp"
+            android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/team_two_score_text"
             app:layout_constraintTop_toTopOf="@+id/team_two_score_text" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 </layout>

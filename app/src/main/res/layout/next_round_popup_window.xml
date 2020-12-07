@@ -4,50 +4,125 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/next_round_header"
         android:layout_width="match_parent"
         android:layout_height="123dp"
         android:gravity="center"
         android:textSize="40sp"
-        android:textColor="@color/white"
-        android:background="#34c6c1"
+        android:textStyle="bold"
         android:text="@string/end_round_header_text"
-        tools:layout_editor_absoluteX="172dp"
-        tools:layout_editor_absoluteY="162dp" />
+        android:background="@android:color/transparent"
 
-    <TextView
-        android:id="@+id/points_in_round_popUp_window"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Punkty w tej rundzie: 15"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:layout_margin="16dp"
-        android:textSize="16sp"
         />
 
-    <TextView
-        android:id="@+id/next_team_popUp_window"
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Następna drużyna: Team 2 "
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="6dp"
+        android:background="@android:color/transparent"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/team"
+            android:layout_marginEnd="5dp"
+            android:textSize="16sp"
+            android:background="@android:color/transparent"
+            />
+
+        <TextView
+            android:id="@+id/active_team_name_popUpWindow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="16sp"
+            tools:text="Team 1"
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:layout_margin="16dp"
-        android:textSize="16sp"
-        />
+        android:layout_margin="6dp"
+        android:background="@android:color/transparent"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="center_horizontal"
+            android:text="@string/earned_in_this_round"
+            android:textSize="16sp"
+            android:background="@android:color/transparent"
+            />
+
+        <TextView
+            android:id="@+id/points_in_active_round"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="center_horizontal"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="30"
+            android:background="@android:color/transparent"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="6dp"
+        android:background="@android:color/transparent"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="16sp"
+            android:layout_marginEnd="5dp"
+            android:text="@string/next_team"
+            android:background="@android:color/transparent"
+            />
+
+        <TextView
+            android:id="@+id/next_team_popUp_window"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="16sp"
+            tools:text="Team 2 "
+            android:textStyle="bold"
+            android:background="@android:color/transparent"
+            />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/start_button_in_popUp_window"
         android:layout_width="243dp"
         android:layout_height="75dp"
         android:layout_gravity="center"
-        android:layout_margin="24dp"
-        android:text="@string/start_button" />
+        android:layout_margin="20dp"
+        android:text="@string/start_button"
+        />
 
 </LinearLayout>

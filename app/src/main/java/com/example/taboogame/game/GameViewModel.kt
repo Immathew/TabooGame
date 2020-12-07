@@ -7,18 +7,40 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.taboogame.data.GuessWord
-import com.example.taboogame.data.WordsToGuessList
+import com.example.taboogame.data.WordsToGuessListENGLISH
+import com.example.taboogame.data.WordsToGuessListPOLISH
+import com.example.taboogame.data.WordsToGuessListSPANISH
 
+private val ADD_POINTS_BUZZ_PATTERN = longArrayOf(100,100,100)
+private val SUBTRACT_POINTS_PATTERN = longArrayOf(0,100, 100, 100)
+private val NO_BUZZ_PATTERN = longArrayOf(0)
 
-class GameViewModel(roundTime: Long, skipAvailable: Int, pointsLimit: Int): ViewModel() {
+class GameViewModel(roundTime: Long, skipAvailable: Int, pointsLimit: Int, vibration: Boolean, language: String): ViewModel() {
 
     private var guessWordList: ArrayList<GuessWord>
+
+    private val guessWordLanguage = language
 
     private val DONE = 0L
     private val ONE_SECOND = 1000L
     private var COUNTDOWN_TIME= roundTime
     private var numberOfSkipsAvailable = skipAvailable
-    private var pointsLimit = pointsLimit
+    private var gamePointsLimit = pointsLimit
+    private val activeVibration = vibration
+
+    enum class BuzzType(val pattern: LongArray) {
+        ADD_POINTS(ADD_POINTS_BUZZ_PATTERN),
+        SUBTRACT(SUBTRACT_POINTS_PATTERN),
+        NO_BUZZ(NO_BUZZ_PATTERN)
+    }
+
+    private val _eventBuzz = MutableLiveData<BuzzType>()
+    val eventBuzz: LiveData<BuzzType>
+        get() = _eventBuzz
+
+    var teamOneActive = true
+    var teamTwoActive = false
+    var pointsInActiveRound = 0
 
     var timer: CountDownTimer
 
@@ -49,9 +71,6 @@ class GameViewModel(roundTime: Long, skipAvailable: Int, pointsLimit: Int): View
     val teamTwoScore: LiveData<Int>
         get() = _teamTwoScore
 
-    private var teamOneActive = true
-    private var teamTwoActive = false
-
     private val _teamOneWordsSkipped = MutableLiveData<Int>()
     val teamOneWordsSkipped: LiveData<Int>
         get() = _teamOneWordsSkipped
@@ -73,7 +92,7 @@ class GameViewModel(roundTime: Long, skipAvailable: Int, pointsLimit: Int): View
         get() = _gameFinished
 
 init {
-    guessWordList = WordsToGuessList.allWords()
+    guessWordList = setLanguage()
     _guessWord.value = guessWordList[0]
     _teamOneUsedAllSkipWords.value = false
     _teamTwoUsedAllSkipWords.value = false
@@ -83,13 +102,15 @@ init {
     _teamTwoWordsSkipped.value = numberOfSkipsAvailable
     _nextRoundActive.value = false
     _gameFinished.value = false
+    teamOneActive = true
+    teamTwoActive = false
 
     updateGuessWord()
 
     timer = object : CountDownTimer(timeLeftOnPause, ONE_SECOND) {
         override fun onTick(millisUntilFinished: Long) {
-            _currentTime.value = (timeToShow / ONE_SECOND)
             timeToShow -= 1000L
+            _currentTime.value = (timeToShow / ONE_SECOND)
 
             if (timeLeftOnPause <= 0) {
                 timeLeftOnPause = 0
@@ -102,6 +123,7 @@ init {
             _currentTime.value = DONE
             switchTeams()
             _nextRoundActive.value = true
+            pointsInActiveRound = 0
         }
     }
 }
@@ -115,7 +137,6 @@ init {
     private fun restartTimerObject() {
         timeLeftOnPause= COUNTDOWN_TIME
         timeToShow = COUNTDOWN_TIME
-        timer.start()
     }
 
     private fun endTimer () {
@@ -125,17 +146,19 @@ init {
 
     fun nextWord() {
         if (guessWordList.isEmpty()) {
-            guessWordList = WordsToGuessList.allWords()
+            guessWordList = setLanguage()
         }
+        pointsInActiveRound++
         updateGuessWord()
         addTeamOneScore()
         addTeamTwoScore()
         isGameFinished()
+        buzzAddPoints()
     }
 
     fun skipWord() {
         if (guessWordList.isEmpty()) {
-            guessWordList = WordsToGuessList.allWords()
+            guessWordList = setLanguage()
         }
         disableSkipWords()
         updateGuessWord()
@@ -143,11 +166,13 @@ init {
 
     fun skipWordAndLosePoint() {
         if (guessWordList.isEmpty()) {
-            guessWordList = WordsToGuessList.allWords()
+            guessWordList = setLanguage()
         }
+        pointsInActiveRound--
         updateGuessWord()
-        substractTeamOneScore()
-        substractTeamTwoScore()
+        subtractTeamOneScore()
+        subtractTeamTwoScore()
+        buzzSubtractPoints()
     }
 
     private fun switchTeams() {
@@ -166,7 +191,7 @@ init {
         }
     }
 
-    private fun substractTeamOneScore () {
+    private fun subtractTeamOneScore () {
         if (teamOneActive) {
             _teamOneScore.value = (teamOneScore.value)?.minus(1)
         }
@@ -178,7 +203,7 @@ init {
         }
     }
 
-    private fun substractTeamTwoScore () {
+    private fun subtractTeamTwoScore () {
         if (teamTwoActive) {
             _teamTwoScore.value= (teamTwoScore.value)?.minus(1)
         }
@@ -211,8 +236,37 @@ init {
     }
 
     private fun isGameFinished() {
-        if (teamOneScore.value == pointsLimit || teamTwoScore.value == pointsLimit) {
+        if (teamOneScore.value == gamePointsLimit || teamTwoScore.value == gamePointsLimit) {
             _gameFinished.value = true
         }
+    }
+
+    fun onBuzzComplete() {
+        _eventBuzz.value = BuzzType.NO_BUZZ
+    }
+
+    private fun buzzAddPoints() {
+        if(activeVibration) {
+            _eventBuzz.value = BuzzType.ADD_POINTS
+        } else _eventBuzz.value = BuzzType.NO_BUZZ
+    }
+
+    private fun buzzSubtractPoints() {
+        if (activeVibration) {
+            _eventBuzz.value = BuzzType.SUBTRACT
+        } else _eventBuzz.value = BuzzType.NO_BUZZ
+    }
+
+    private fun setLanguage(): ArrayList<GuessWord> {
+        if(guessWordLanguage == "en") {
+            guessWordList = WordsToGuessListENGLISH.allWordsENGLISH()
+        }
+        if (guessWordLanguage == "pl") {
+            guessWordList = WordsToGuessListPOLISH.allWordsPOLISH()
+        }
+        if (guessWordLanguage == "es") {
+            guessWordList = WordsToGuessListSPANISH.allWordsSPANISH()
+        }
+        return guessWordList
     }
 }

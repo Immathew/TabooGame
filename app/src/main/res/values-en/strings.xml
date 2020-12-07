@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="title">TabooGame</string>
@@ -6,32 +7,17 @@
         took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
         but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
         with the release of Letraset sheets containing Lorem Ipsum.</string>
-    <string name="start_button" translatable="false">Start</string>
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="settings_button">SETTINGS</string>
     <string name="rules_button">RULES</string>
     <string name="pick_time_for_round">Round time</string>
-    <string name="pick_one_minute" translatable="false">1:00</string>
-    <string name="pick_minute_and_a_half" translatable="false">1:30</string>
-    <string name="pick_two_minutes" translatable="false">2:00</string>
     <string name="skip_number">Skips available</string>
-    <string name="skip_3" translatable="false">3</string>
-    <string name="skip_5" translatable="false">5</string>
-    <string name="skip_10" translatable="false">10</string>
     <string name="points_limit">Points limit</string>
-    <string name="limit_points_20" translatable="false">20</string>
-    <string name="limit_points_30" translatable="false">30</string>
-    <string name="limit_points_50" translatable="false">50</string>
     <string name="start_the_game_button">Start the game</string>
     <string name="forbidden_words_header">Forbidden words</string>
-    <string name="pause_button" translatable="false">pause_button</string>
     <string name="end_the_game_button">END GAME</string>
     <string name="resume_button">RESUME</string>
     <string name="end_game_header">GAME OVER</string>
     <string name="play_again">PLAY AGAIN</string>
-    <string name="score_format" translatable="false">%d</string>
-    <string name="team_two_name" translatable="false">Team 2</string>
-    <string name="team_one_name" translatable="false">Team 1</string>
     <string name="end_round_header_text">Round finished</string>
     <string name="end_round_header">Finish round?</string>
     <string name="do_you_want_to_exit_round">Do you really want to exit?          \You will lose your current game state.</string>
@@ -44,14 +30,10 @@
     <string name="app_language">Application language</string>
     <string name="guess_words_language">Guess words language</string>
     <string name="dark_theme">Dark theme</string>
-    <string name="key_isNightThemeActive" translatable="false">com.example.taboogame.isNightThemeActive</string>
-    <string name="key_isVibration_Active" translatable="false">com.example.taboogame.isVibrationActive</string>
-    <string name="key_guessWords_Language_Active" translatable="false">com.example.taboogame.Language_Active</string>
     <string name="teams_name">Team names</string>
     <string name="select_language">App language</string>
     <string name="cancel">Cancel</string>
     <string name="select_one_to_change_app_language">Select to change app language</string>
     <string name="select_one_to_change_guess_words_language">Select one to change guessing words language</string>
-
 
 </resources>
