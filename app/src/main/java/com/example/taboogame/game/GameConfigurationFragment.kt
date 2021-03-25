@@ -5,25 +5,28 @@ import android.annotation.SuppressLint
 import android.content.SharedPreferences
 
 import android.os.Bundle
-import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorRes
-import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.example.taboogame.R
 import com.example.taboogame.databinding.FragmentGameConfigurationBinding
-import kotlinx.android.synthetic.main.fragment_game_configuration.*
+import com.example.taboogame.models.NewGameSettings
 
 
 class GameConfigurationFragment : Fragment() {
 
     private lateinit var mPreferences: SharedPreferences
     private var vibration = true
+
+    private var _binding: FragmentGameConfigurationBinding? = null
+    private val binding get() = _binding!!
+
+    private var newGameSettings = NewGameSettings(
+        6000L, 3, 20, "Team 1", "Team 2"
+    )
 
     private var roundTime = 60000L
     private var skipAvailable = 3
@@ -36,82 +39,119 @@ class GameConfigurationFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding: FragmentGameConfigurationBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_game_configuration, container, false)
+        _binding = FragmentGameConfigurationBinding.inflate(layoutInflater, container, false)
 
         mPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
         vibration = mPreferences.getBoolean(getString(R.string.key_isVibration_Active), false)
 
         setStartingConfiguration()
 
-        binding.startTheGameButton.setOnClickListener{view: View ->
+        binding.startTheGameButton.setOnClickListener {
             addTeamNames()
-            Navigation.findNavController(view)
-                .navigate(GameConfigurationFragmentDirections.actionGameConfigurationFragmentToGameFragment(
-                    roundTime, skipAvailable, pointsLimit, teamOneName, teamTwoName, vibration))
+            Navigation.findNavController(it)
+                .navigate(
+                    GameConfigurationFragmentDirections.actionGameConfigurationFragmentToGameFragment(
+                        roundTime, skipAvailable, pointsLimit, teamOneName, teamTwoName, vibration
+                    )
+                )
         }
 
         //Set time buttons
-        binding.oneMinuteButton.setOnClickListener {
-            roundTime = 60000L
+        binding.oneMinuteChip.setOnClickListener {
+            roundTime = 10000L
             resetTimeButtons()
-            one_minute_button.setTextColor(android.graphics.Color.WHITE)
-            one_minute_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            binding.oneMinuteChip.setTextColor(android.graphics.Color.WHITE)
+            binding.oneMinuteChip.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.gray
+                )
+            )
 
         }
-        binding.minuteAndAHalfButton.setOnClickListener {
+        binding.minuteAndHalfChip.setOnClickListener {
             roundTime = 90000L
             resetTimeButtons()
-            minute_and_a_half_button.setTextColor(android.graphics.Color.WHITE)
-            minute_and_a_half_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            binding.minuteAndHalfChip.setTextColor(android.graphics.Color.WHITE)
+            binding.minuteAndHalfChip.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.gray
+                )
+            )
 
         }
-        binding.twoMinutesButton.setOnClickListener {
+        binding.twoMinutesChip.setOnClickListener {
             roundTime = 120000L
             resetTimeButtons()
-            two_minutes_button.setTextColor(android.graphics.Color.WHITE)
-            two_minutes_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            binding.twoMinutesChip.setTextColor(android.graphics.Color.WHITE)
+            binding.twoMinutesChip.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.gray
+                )
+            )
         }
 
         //set skip buttons
-        binding.skip3Button.setOnClickListener{
+        binding.skip3Button.setOnClickListener {
             skipAvailable = 3
             resetSkipButtons()
-            skip_3_button.setTextColor(android.graphics.Color.WHITE)
-            skip_3_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            binding.skip3Button.setTextColor(android.graphics.Color.WHITE)
+            binding.skip3Button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
 
         }
-        binding.skip5Button.setOnClickListener{
+        binding.skip5Button.setOnClickListener {
             skipAvailable = 5
             resetSkipButtons()
-            skip_5_button.setTextColor(android.graphics.Color.WHITE)
-            skip_5_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            binding.skip5Button.setTextColor(android.graphics.Color.WHITE)
+            binding.skip5Button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
         }
-        binding.skip10Button.setOnClickListener{
+        binding.skip10Button.setOnClickListener {
             skipAvailable = 10
             resetSkipButtons()
-            skip_10_button.setTextColor(android.graphics.Color.WHITE)
-            skip_10_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            binding.skip10Button.setTextColor(android.graphics.Color.WHITE)
+            binding.skip10Button.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.gray
+                )
+            )
         }
 
         //Set points limit buttons
-        binding.points20Button.setOnClickListener{
+        binding.points20Button.setOnClickListener {
             pointsLimit = 20
             resetPointsLimitButton()
-            points_20_button.setTextColor(android.graphics.Color.WHITE)
-            points_20_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            binding.points20Button.setTextColor(android.graphics.Color.WHITE)
+            binding.points20Button.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.gray
+                )
+            )
         }
-        binding.points30Button.setOnClickListener{
+        binding.points30Button.setOnClickListener {
             pointsLimit = 30
             resetPointsLimitButton()
-            points_30_button.setTextColor(android.graphics.Color.WHITE)
-            points_30_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            binding.points30Button.setTextColor(android.graphics.Color.WHITE)
+            binding.points30Button.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.gray
+                )
+            )
         }
-        binding.points50Button.setOnClickListener{
+        binding.points50Button.setOnClickListener {
             pointsLimit = 50
             resetPointsLimitButton()
-            points_50_button.setTextColor(android.graphics.Color.WHITE)
-            points_50_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            binding.points50Button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+            binding.points50Button.setBackgroundColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.gray
+                )
+            )
         }
 
         return binding.root
@@ -124,25 +164,35 @@ class GameConfigurationFragment : Fragment() {
     }
 
     private fun resetTimeButtons() {
-        one_minute_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
-        minute_and_a_half_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
-        two_minutes_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
+        binding.oneMinuteChip.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
+        binding.minuteAndHalfChip.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.blue
+            )
+        )
+        binding.twoMinutesChip.setBackgroundColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.blue
+            )
+        )
     }
 
     private fun resetSkipButtons() {
-        skip_3_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
-        skip_5_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
-        skip_10_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
+        binding.skip3Button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
+        binding.skip5Button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
+        binding.skip10Button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
     }
 
     private fun resetPointsLimitButton() {
-        points_20_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
-        points_30_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
-        points_50_button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
+        binding.points20Button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
+        binding.points30Button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
+        binding.points50Button.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.blue))
     }
 
     private fun addTeamNames() {
-        teamOneName = submit_team_one_name.text.toString()
-        teamTwoName = submit_team_two_name.text.toString()
+        teamOneName = binding.submitTeamOneName.text.toString()
+        teamTwoName = binding.submitTeamTwoName.text.toString()
     }
 }

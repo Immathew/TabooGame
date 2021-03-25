@@ -1,5 +1,7 @@
 package com.example.taboogame.data
 
+import com.example.taboogame.models.GuessWord
+
 object WordsToGuessListPOLISH {
 
     fun allWordsPOLISH(): ArrayList<GuessWord> {

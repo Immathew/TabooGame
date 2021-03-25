@@ -1,75 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="123dp"
-        android:text="@string/select_language"
-        android:gravity="center"
-        android:textSize="40sp"
-        android:textStyle="bold"
-
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/select_one_to_change_app_language"
-        android:gravity="center"
-        android:background="@android:color/transparent"
-        android:layout_margin="8dp"/>
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="@android:color/transparent"
-        >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/english_button_appLanguage"
-            android:layout_width="55dp"
-            android:layout_height="61dp"
-            android:layout_margin="8dp"
-            android:elevation="10dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_flag_of_uk"
-            tools:layout_editor_absoluteX="222dp"
-            tools:layout_editor_absoluteY="144dp" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="123dp"
+            android:text="@string/select_language"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:textStyle="bold"
 
-        <ImageView
-            android:id="@+id/polish_button_appLanguage"
-            android:layout_width="55dp"
-            android:layout_height="61dp"
-            android:layout_margin="8dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_one_to_change_app_language"
+            android:gravity="center"
             android:background="@android:color/transparent"
-            app:srcCompat="@drawable/ic_flag_of_poland_2"
-            tools:layout_editor_absoluteX="115dp"
-            tools:layout_editor_absoluteY="144dp" />
+            android:layout_margin="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@android:color/transparent">
+
+            <ImageView
+                android:id="@+id/english_button_appLanguage"
+                android:layout_width="55dp"
+                android:layout_height="61dp"
+                android:layout_margin="8dp"
+                android:elevation="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_flag_of_uk"
+                tools:layout_editor_absoluteX="222dp"
+                tools:layout_editor_absoluteY="144dp" />
+
+            <ImageView
+                android:id="@+id/polish_button_appLanguage"
+                android:layout_width="55dp"
+                android:layout_height="61dp"
+                android:layout_margin="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_flag_of_poland_2"
+                tools:layout_editor_absoluteX="115dp"
+                tools:layout_editor_absoluteY="144dp" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/cancel_button_in_appLanguage"
+            android:layout_width="189dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:text="@string/cancel" />
 
     </LinearLayout>
-
-
-    <Button
-        android:id="@+id/cancel_button_in_appLanguage"
-        android:layout_width="189dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="8dp"
-        android:text="@string/cancel" />
-
-</LinearLayout>
+</layout>

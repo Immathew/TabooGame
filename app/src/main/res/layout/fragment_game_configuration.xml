@@ -15,7 +15,6 @@
         tools:context=".game.GameConfigurationFragment"
         android:orientation="vertical"
         >
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,26 +34,44 @@
             android:layout_marginBottom="16dp"
             android:background="@android:color/transparent">
 
-            <Button
-                android:id="@+id/one_minute_button"
+            <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/gray"
-                android:text="@string/pick_one_minute" />
+                android:background="@android:color/transparent">
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="@android:color/transparent">
 
-            <Button
-                android:id="@+id/minute_and_a_half_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pick_minute_and_a_half"
-                />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/oneMinute_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/pick_one_minute"/>
 
-            <Button
-                android:id="@+id/two_minutes_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pick_two_minutes"
-                />
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/minuteAndHalf_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/pick_minute_and_a_half"/>
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/twoMinutes_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/pick_one_minute"/>
+
+                </LinearLayout>
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
         </LinearLayout>
 
             <TextView

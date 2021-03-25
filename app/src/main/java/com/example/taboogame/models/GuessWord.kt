@@ -1,4 +1,4 @@
-package com.example.taboogame.data
+package com.example.taboogame.models
 
 data class GuessWord(
     val id: Int,

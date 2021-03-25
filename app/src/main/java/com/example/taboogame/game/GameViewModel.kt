@@ -6,16 +6,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.taboogame.data.GuessWord
+import com.example.taboogame.models.GuessWord
 import com.example.taboogame.data.WordsToGuessListENGLISH
 import com.example.taboogame.data.WordsToGuessListPOLISH
 import com.example.taboogame.data.WordsToGuessListSPANISH
 
-private val ADD_POINTS_BUZZ_PATTERN = longArrayOf(100,100,100)
-private val SUBTRACT_POINTS_PATTERN = longArrayOf(0,100, 100, 100)
+private val ADD_POINTS_BUZZ_PATTERN = longArrayOf(100, 100, 100)
+private val SUBTRACT_POINTS_PATTERN = longArrayOf(0, 100, 100, 100)
 private val NO_BUZZ_PATTERN = longArrayOf(0)
 
-class GameViewModel(roundTime: Long, skipAvailable: Int, pointsLimit: Int, vibration: Boolean, language: String): ViewModel() {
+class GameViewModel(
+    roundTime: Long,
+    skipAvailable: Int,
+    pointsLimit: Int,
+    vibration: Boolean,
+    language: String
+) : ViewModel() {
 
     private var guessWordList: ArrayList<GuessWord>
 
@@ -23,7 +29,7 @@ class GameViewModel(roundTime: Long, skipAvailable: Int, pointsLimit: Int, vibra
 
     private val DONE = 0L
     private val ONE_SECOND = 1000L
-    private var COUNTDOWN_TIME= roundTime
+    private var COUNTDOWN_TIME = roundTime
     private var numberOfSkipsAvailable = skipAvailable
     private var gamePointsLimit = pointsLimit
     private val activeVibration = vibration
@@ -46,7 +52,7 @@ class GameViewModel(roundTime: Long, skipAvailable: Int, pointsLimit: Int, vibra
 
     private val _currentTime = MutableLiveData<Long>()
     private val currentTime: LiveData<Long>
-    get() = _currentTime
+        get() = _currentTime
 
     val currentTimeString = Transformations.map(currentTime) { time ->
         DateUtils.formatElapsedTime((time))
@@ -58,7 +64,7 @@ class GameViewModel(roundTime: Long, skipAvailable: Int, pointsLimit: Int, vibra
     private val _nextRoundActive = MutableLiveData<Boolean>()
     val nextRoundActive: LiveData<Boolean>
         get() = _nextRoundActive
-    
+
     private val _guessWord = MutableLiveData<GuessWord>()
     val guessWord: LiveData<GuessWord>
         get() = _guessWord
@@ -91,55 +97,56 @@ class GameViewModel(roundTime: Long, skipAvailable: Int, pointsLimit: Int, vibra
     val gameFinished: LiveData<Boolean>
         get() = _gameFinished
 
-init {
-    guessWordList = setLanguage()
-    _guessWord.value = guessWordList[0]
-    _teamOneUsedAllSkipWords.value = false
-    _teamTwoUsedAllSkipWords.value = false
-    _teamOneScore.value = 0
-    _teamTwoScore.value = 0
-    _teamOneWordsSkipped.value = numberOfSkipsAvailable
-    _teamTwoWordsSkipped.value = numberOfSkipsAvailable
-    _nextRoundActive.value = false
-    _gameFinished.value = false
-    teamOneActive = true
-    teamTwoActive = false
+    init {
+        guessWordList = setLanguage()
+        _guessWord.value = guessWordList[0]
+        _teamOneUsedAllSkipWords.value = false
+        _teamTwoUsedAllSkipWords.value = false
+        _teamOneScore.value = 0
+        _teamTwoScore.value = 0
+        _teamOneWordsSkipped.value = numberOfSkipsAvailable
+        _teamTwoWordsSkipped.value = numberOfSkipsAvailable
+        _nextRoundActive.value = false
+        _gameFinished.value = false
+        teamOneActive = true
+        teamTwoActive = false
 
-    updateGuessWord()
+        updateGuessWord()
 
-    timer = object : CountDownTimer(timeLeftOnPause, ONE_SECOND) {
-        override fun onTick(millisUntilFinished: Long) {
-            timeToShow -= 1000L
-            _currentTime.value = (timeToShow / ONE_SECOND)
+        timer = object : CountDownTimer(timeLeftOnPause, ONE_SECOND) {
+            override fun onTick(millisUntilFinished: Long) {
+                timeToShow -= 1000L
+                _currentTime.value = (timeToShow / ONE_SECOND)
 
-            if (timeLeftOnPause <= 0) {
-                timeLeftOnPause = 0
-                endTimer()
-            } else {
-                timeLeftOnPause -= 1000L
+                if (timeLeftOnPause <= 0) {
+                    timeLeftOnPause = 0
+                    endTimer()
+                } else {
+                    timeLeftOnPause -= 1000L
+                }
+            }
+
+            override fun onFinish() {
+                _currentTime.value = DONE
+                switchTeams()
+                _nextRoundActive.value = true
+                pointsInActiveRound = 0
             }
         }
-        override fun onFinish() {
-            _currentTime.value = DONE
-            switchTeams()
-            _nextRoundActive.value = true
-            pointsInActiveRound = 0
-        }
     }
-}
 
-    fun restartTimer () {
+    fun restartTimer() {
         restartTimerObject()
         _nextRoundActive.value = false
         disableSkipWords()
     }
 
     private fun restartTimerObject() {
-        timeLeftOnPause= COUNTDOWN_TIME
+        timeLeftOnPause = COUNTDOWN_TIME
         timeToShow = COUNTDOWN_TIME
     }
 
-    private fun endTimer () {
+    private fun endTimer() {
         timer.onFinish()
         timer.cancel()
     }
@@ -155,12 +162,14 @@ init {
         isGameFinished()
         buzzAddPoints()
     }
+    // TODO: 25.03.2021  Fix skips
 
     fun skipWord() {
         if (guessWordList.isEmpty()) {
             guessWordList = setLanguage()
         }
         disableSkipWords()
+        decreaseSkipWordsAvailable()
         updateGuessWord()
     }
 
@@ -176,7 +185,7 @@ init {
     }
 
     private fun switchTeams() {
-        if(teamOneActive){
+        if (teamOneActive) {
             teamOneActive = false
             teamTwoActive = true
         } else {
@@ -191,7 +200,7 @@ init {
         }
     }
 
-    private fun subtractTeamOneScore () {
+    private fun subtractTeamOneScore() {
         if (teamOneActive) {
             _teamOneScore.value = (teamOneScore.value)?.minus(1)
         }
@@ -199,39 +208,46 @@ init {
 
     private fun addTeamTwoScore() {
         if (teamTwoActive) {
-            _teamTwoScore.value= (teamTwoScore.value)?.plus(1)
+            _teamTwoScore.value = (teamTwoScore.value)?.plus(1)
         }
     }
 
-    private fun subtractTeamTwoScore () {
+    private fun subtractTeamTwoScore() {
         if (teamTwoActive) {
-            _teamTwoScore.value= (teamTwoScore.value)?.minus(1)
+            _teamTwoScore.value = (teamTwoScore.value)?.minus(1)
         }
     }
 
-    private fun updateGuessWord () {
+    private fun updateGuessWord() {
         _guessWord.value = guessWordList[0]
         guessWordList.removeAt(0)
     }
 
     private fun disableSkipWords() {
         if (teamOneActive) {
-            if (1 >= _teamOneWordsSkipped.value ?: 0) {
+            if (0 == _teamOneWordsSkipped.value ?: 2) {
                 _teamOneUsedAllSkipWords.value = true
                 _teamOneWordsSkipped.value = 0
-            }else {
+            } else {
                 _teamOneUsedAllSkipWords.value = false
-                _teamOneWordsSkipped.value = teamOneWordsSkipped.value?.minus(1)
             }
         }
-        if (teamTwoActive){
-            if (1 >= _teamTwoWordsSkipped.value ?: 0) {
+        if (teamTwoActive) {
+            if (0 == _teamTwoWordsSkipped.value ?: 2) {
                 _teamTwoUsedAllSkipWords.value = true
                 _teamTwoWordsSkipped.value = 0
-            }else {
+            } else {
                 _teamTwoUsedAllSkipWords.value = false
-                _teamTwoWordsSkipped.value = teamTwoWordsSkipped.value?.minus(1)
             }
+        }
+    }
+
+    private fun decreaseSkipWordsAvailable() {
+        if (teamOneActive && _teamOneWordsSkipped.value != 0) {
+            _teamOneWordsSkipped.value = teamOneWordsSkipped.value?.minus(1)
+        }
+        if (teamTwoActive && _teamTwoWordsSkipped.value != 0) {
+            _teamTwoWordsSkipped.value = teamTwoWordsSkipped.value?.minus(1)
         }
     }
 
@@ -246,7 +262,7 @@ init {
     }
 
     private fun buzzAddPoints() {
-        if(activeVibration) {
+        if (activeVibration) {
             _eventBuzz.value = BuzzType.ADD_POINTS
         } else _eventBuzz.value = BuzzType.NO_BUZZ
     }
@@ -258,15 +274,18 @@ init {
     }
 
     private fun setLanguage(): ArrayList<GuessWord> {
-        if(guessWordLanguage == "en") {
-            guessWordList = WordsToGuessListENGLISH.allWordsENGLISH()
+        guessWordList = when(guessWordLanguage) {
+            "en" -> {
+                WordsToGuessListENGLISH.allWordsENGLISH()
+            }
+            "es" -> {
+                WordsToGuessListSPANISH.allWordsSPANISH()
+            }
+            else -> {
+                WordsToGuessListPOLISH.allWordsPOLISH()
+            }
         }
-        if (guessWordLanguage == "pl") {
-            guessWordList = WordsToGuessListPOLISH.allWordsPOLISH()
-        }
-        if (guessWordLanguage == "es") {
-            guessWordList = WordsToGuessListSPANISH.allWordsSPANISH()
-        }
-        return guessWordList
+            return guessWordList
     }
+
 }

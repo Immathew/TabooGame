@@ -1,7 +1,6 @@
 package com.example.taboogame
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +9,9 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.example.taboogame.databinding.AppLanguageOptionsWindowBinding
 import com.example.taboogame.databinding.FragmentSettingsBinding
-import kotlinx.android.synthetic.main.app_language_options_window.*
-import kotlinx.android.synthetic.main.guess_words_language_window.*
-
+import com.example.taboogame.databinding.GuessWordsLanguageWindowBinding
 import java.util.*
 
 
@@ -21,14 +19,23 @@ class SettingsFragment : Fragment() {
 
     private lateinit var mPreferences: SharedPreferences
     private lateinit var mEditor: SharedPreferences.Editor
-    private lateinit var binding: FragmentSettingsBinding
+
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
+
+    private var _bindingGuessWordsLanguage: GuessWordsLanguageWindowBinding? = null
+    private val bindingGuessWordsLanguage get() = _bindingGuessWordsLanguage
+
+    private var _bindingAppLanguage: AppLanguageOptionsWindowBinding? = null
+    private val bindingAppLanguage get() = _bindingAppLanguage
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_settings, container, false)
+    ): View {
+        _binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_settings, container, false
+        )
 
         mPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
         mEditor = mPreferences.edit()
@@ -67,89 +74,107 @@ class SettingsFragment : Fragment() {
             guessWordsLanguageWindow()
         }
 
-        binding.vibrationSwitch.isChecked = mPreferences.getBoolean(getString(R.string.key_isVibration_Active), false)
-        binding.darkThemeSwitch.isChecked = mPreferences.getBoolean(getString(R.string.key_isNightThemeActive), false)
+        binding.vibrationSwitch.isChecked =
+            mPreferences.getBoolean(getString(R.string.key_isVibration_Active), false)
+        binding.darkThemeSwitch.isChecked =
+            mPreferences.getBoolean(getString(R.string.key_isNightThemeActive), false)
 
         return binding.root
     }
 
     private fun setProperIcons(prefs: String) {
-        if (prefs == "en") {
-            binding.appLanguageButton.setImageResource(R.drawable.ic_flag_of_uk)
+        when (prefs) {
+            "en" -> {
+                binding.appLanguageButton.setImageResource(R.drawable.ic_flag_of_uk)
+            }
+            "pl" -> {
+                binding.appLanguageButton.setImageResource(R.drawable.ic_flag_of_poland_2)
+            }
         }
-        if (prefs == "pl") {
-            binding.appLanguageButton.setImageResource(R.drawable.ic_flag_of_poland_2)
-        }
-        if (mPreferences.getString(getString(R.string.key_guessWords_Language_Active), "en") == "en") {
-            binding.guessWordsLanguageButton.setImageResource(R.drawable.ic_flag_of_uk)
-        }
-        if (mPreferences.getString(getString(R.string.key_guessWords_Language_Active), "en") == "pl") {
-            binding.guessWordsLanguageButton.setImageResource(R.drawable.ic_flag_of_poland_2)
-        }
-        if (mPreferences.getString(getString(R.string.key_guessWords_Language_Active), "en") == "es") {
-            binding.guessWordsLanguageButton.setImageResource(R.drawable.ic_flag_of_spain)
+
+        val language = mPreferences.getString(
+            getString(R.string.key_guessWords_Language_Active),
+            "en"
+        )
+        when (language) {
+            "en" -> {
+                binding.guessWordsLanguageButton.setImageResource(R.drawable.ic_flag_of_uk)
+            }
+            "pl" -> {
+                binding.guessWordsLanguageButton.setImageResource(R.drawable.ic_flag_of_poland_2)
+            }
+            "es" -> {
+                binding.guessWordsLanguageButton.setImageResource(R.drawable.ic_flag_of_spain)
+            }
         }
     }
 
     private fun appLanguageWindow() {
-        val builder: AlertDialog.Builder? = activity?.let {
-            AlertDialog.Builder(it)
-        }
-        val inflater = requireActivity().layoutInflater
-        builder?.setView(inflater.inflate(R.layout.app_language_options_window, null))
-        val dialog: AlertDialog? = builder?.create()
+        _bindingAppLanguage =
+            AppLanguageOptionsWindowBinding.inflate(LayoutInflater.from(context))
+
+        val dialog = AlertDialog.Builder(requireActivity())
+            .setView(bindingAppLanguage?.root)
+            .create()
         dialog?.show()
 
-        dialog?.english_button_appLanguage?.setOnClickListener {
+        bindingAppLanguage?.englishButtonAppLanguage?.setOnClickListener {
             LocaleManager.setNewLocale(requireContext(), "en")
             activity?.recreate()
             dialog.dismiss()
         }
 
-        dialog?.polish_button_appLanguage?.setOnClickListener {
+        bindingAppLanguage?.polishButtonAppLanguage?.setOnClickListener {
             LocaleManager.setNewLocale(requireContext(), "pl")
             activity?.recreate()
             dialog.dismiss()
         }
 
-        dialog?.cancel_button_in_appLanguage?.setOnClickListener{
+        bindingAppLanguage?.cancelButtonInAppLanguage?.setOnClickListener {
             dialog.dismiss()
         }
     }
 
     private fun guessWordsLanguageWindow() {
-        val builder: AlertDialog.Builder? = activity?.let {
-            AlertDialog.Builder(it)
-        }
-        val inflater = requireActivity().layoutInflater
-        builder?.setView(inflater.inflate(R.layout.guess_words_language_window, null))
-        val dialog: AlertDialog? = builder?.create()
+        _bindingGuessWordsLanguage =
+            GuessWordsLanguageWindowBinding.inflate(LayoutInflater.from(context))
+
+        val dialog = AlertDialog.Builder(requireActivity())
+            .setView(bindingGuessWordsLanguage?.root)
+            .create()
         dialog?.show()
 
-        dialog?.english_button_guessWordLanguage?.setOnClickListener {
+        bindingGuessWordsLanguage?.englishButtonGuessWordLanguage?.setOnClickListener {
             mEditor.putString(getString(R.string.key_guessWords_Language_Active), "en")
             mEditor.apply()
             activity?.recreate()
-            dialog.dismiss()
+            dialog?.dismiss()
         }
 
-        dialog?.polish_button_guessWordLanguage?.setOnClickListener {
+        bindingGuessWordsLanguage?.polishButtonGuessWordLanguage?.setOnClickListener {
             mEditor.putString(getString(R.string.key_guessWords_Language_Active), "pl")
             mEditor.apply()
             activity?.recreate()
             dialog.dismiss()
         }
 
-        dialog?.spanish_button_guessWordLanguage?.setOnClickListener {
+        bindingGuessWordsLanguage?.spanishButtonGuessWordLanguage?.setOnClickListener {
             mEditor.putString(getString(R.string.key_guessWords_Language_Active), "es")
             mEditor.apply()
             activity?.recreate()
             dialog.dismiss()
         }
 
-        dialog?.cancel_button_guessWordLanguage?.setOnClickListener {
+        bindingGuessWordsLanguage?.cancelButtonGuessWordLanguage?.setOnClickListener {
             dialog.dismiss()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        _bindingAppLanguage = null
+        _bindingGuessWordsLanguage = null
     }
 }
 
