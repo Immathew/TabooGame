@@ -85,14 +85,6 @@ class GameViewModel(
     val teamTwoWordsSkipped: LiveData<Int>
         get() = _teamTwoWordsSkipped
 
-    private val _teamOneUsedAllSkipWords = MutableLiveData<Boolean>()
-    val teamOneUsedAllSkipWords: LiveData<Boolean>
-        get() = _teamOneUsedAllSkipWords
-
-    private val _teamTwoUsedAllSkipWords = MutableLiveData<Boolean>()
-    val teamTwoUsedAllSkipWords: LiveData<Boolean>
-        get() = _teamTwoUsedAllSkipWords
-
     private val _gameFinished = MutableLiveData<Boolean>()
     val gameFinished: LiveData<Boolean>
         get() = _gameFinished
@@ -100,8 +92,6 @@ class GameViewModel(
     init {
         guessWordList = setLanguage()
         _guessWord.value = guessWordList[0]
-        _teamOneUsedAllSkipWords.value = false
-        _teamTwoUsedAllSkipWords.value = false
         _teamOneScore.value = 0
         _teamTwoScore.value = 0
         _teamOneWordsSkipped.value = numberOfSkipsAvailable
@@ -138,7 +128,6 @@ class GameViewModel(
     fun restartTimer() {
         restartTimerObject()
         _nextRoundActive.value = false
-        disableSkipWords()
     }
 
     private fun restartTimerObject() {
@@ -162,13 +151,11 @@ class GameViewModel(
         isGameFinished()
         buzzAddPoints()
     }
-    // TODO: 25.03.2021  Fix skips
 
     fun skipWord() {
         if (guessWordList.isEmpty()) {
             guessWordList = setLanguage()
         }
-        disableSkipWords()
         decreaseSkipWordsAvailable()
         updateGuessWord()
     }
@@ -221,25 +208,6 @@ class GameViewModel(
     private fun updateGuessWord() {
         _guessWord.value = guessWordList[0]
         guessWordList.removeAt(0)
-    }
-
-    private fun disableSkipWords() {
-        if (teamOneActive) {
-            if (0 == _teamOneWordsSkipped.value ?: 2) {
-                _teamOneUsedAllSkipWords.value = true
-                _teamOneWordsSkipped.value = 0
-            } else {
-                _teamOneUsedAllSkipWords.value = false
-            }
-        }
-        if (teamTwoActive) {
-            if (0 == _teamTwoWordsSkipped.value ?: 2) {
-                _teamTwoUsedAllSkipWords.value = true
-                _teamTwoWordsSkipped.value = 0
-            } else {
-                _teamTwoUsedAllSkipWords.value = false
-            }
-        }
     }
 
     private fun decreaseSkipWordsAvailable() {

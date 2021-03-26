@@ -79,14 +79,18 @@ class GameFragment : Fragment() {
             viewModel.timer.cancel()
         }
 
-        viewModel.teamOneUsedAllSkipWords.observe(viewLifecycleOwner, { hasSkipped ->
-
-                binding.skipWordButton.isClickable = !hasSkipped
+        viewModel.teamOneWordsSkipped.observe(viewLifecycleOwner, { value ->
+            if (viewModel.teamOneActive && value != 0) {
+                binding.skipWordButton.isClickable = true
+            } else binding.skipWordButton.isClickable =
+                viewModel.teamTwoActive && viewModel.teamTwoWordsSkipped.value != 0
 
         })
-        viewModel.teamTwoUsedAllSkipWords.observe(viewLifecycleOwner, { hasSkipped ->
-
-                binding.skipWordButton.isClickable = !hasSkipped
+        viewModel.teamTwoWordsSkipped.observe(viewLifecycleOwner, { value ->
+            if (viewModel.teamTwoActive && value != 0) {
+                binding.skipWordButton.isClickable = true
+            } else binding.skipWordButton.isClickable =
+                viewModel.teamOneActive && viewModel.teamOneWordsSkipped.value != 0
 
         })
 
