@@ -19,5 +19,14 @@
     </style>
 
 
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="chipSurfaceColor">@android:color/transparent</item>
+        <item name="chipStrokeColor">@color/blue</item>
+        <item name="chipStrokeWidth">@dimen/chipStrokeWidth</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+        <item name="android:textAlignment">center</item>
+    </style>
 
 </resources>

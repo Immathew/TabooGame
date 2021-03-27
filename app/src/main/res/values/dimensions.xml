@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <dimen name="chipStrokeWidth">2dp</dimen>
+    <dimen name="chipMarginStart">10dp</dimen>
+    <dimen name="chipWidth">70dp</dimen>
+
+</resources>

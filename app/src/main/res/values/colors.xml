@@ -10,5 +10,16 @@
     <color name="blue">#2842F3</color>
     <color name="light_blue">#52a8ff</color>
     <color name="gray">#808080</color>
+    <color name="transparent">#00000000</color>
+
+
+    //Custom Chip style
+
+    <color name="checkedChipBackgroundColor">@color/blue</color>
+    <color name="chipBackgroundColor">@color/transparent</color>
+
+    <color name="checkedChipTextColor">@color/white</color>
+    <color name="chipTextColor">@color/blue</color>
+
 
 </resources>
