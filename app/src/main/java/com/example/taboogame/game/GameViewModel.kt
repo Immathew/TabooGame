@@ -10,29 +10,26 @@ import com.example.taboogame.models.GuessWord
 import com.example.taboogame.data.WordsToGuessListENGLISH
 import com.example.taboogame.data.WordsToGuessListPOLISH
 import com.example.taboogame.data.WordsToGuessListSPANISH
+import com.example.taboogame.models.NewGameSettings
 
 private val ADD_POINTS_BUZZ_PATTERN = longArrayOf(100, 100, 100)
 private val SUBTRACT_POINTS_PATTERN = longArrayOf(0, 100, 100, 100)
 private val NO_BUZZ_PATTERN = longArrayOf(0)
 
 class GameViewModel(
-    roundTime: Long,
-    skipAvailable: Int,
-    pointsLimit: Int,
-    vibration: Boolean,
-    language: String
+    newGameSettings: NewGameSettings
 ) : ViewModel() {
 
     private var guessWordList: ArrayList<GuessWord>
 
-    private val guessWordLanguage = language
+    private val guessWordLanguage = newGameSettings.language
 
     private val DONE = 0L
     private val ONE_SECOND = 1000L
-    private var COUNTDOWN_TIME = roundTime
-    private var numberOfSkipsAvailable = skipAvailable
-    private var gamePointsLimit = pointsLimit
-    private val activeVibration = vibration
+    private var COUNTDOWN_TIME = newGameSettings.roundTime
+    private var numberOfSkipsAvailable = newGameSettings.skipAvailable
+    private var gamePointsLimit = newGameSettings.pointsLimit
+    private val activeVibration = newGameSettings.vibration
 
     enum class BuzzType(val pattern: LongArray) {
         ADD_POINTS(ADD_POINTS_BUZZ_PATTERN),
@@ -242,7 +239,7 @@ class GameViewModel(
     }
 
     private fun setLanguage(): ArrayList<GuessWord> {
-        guessWordList = when(guessWordLanguage) {
+        guessWordList = when (guessWordLanguage) {
             "en" -> {
                 WordsToGuessListENGLISH.allWordsENGLISH()
             }
@@ -253,7 +250,6 @@ class GameViewModel(
                 WordsToGuessListPOLISH.allWordsPOLISH()
             }
         }
-            return guessWordList
+        return guessWordList
     }
-
 }

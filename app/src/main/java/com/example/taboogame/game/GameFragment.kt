@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +23,6 @@ import com.example.taboogame.databinding.BackButtonPopWindowBinding
 import com.example.taboogame.databinding.FragmentGameBinding
 import com.example.taboogame.databinding.NextRoundPopupWindowBinding
 
-
 class GameFragment : Fragment() {
 
     private lateinit var viewModel: GameViewModel
@@ -37,8 +37,6 @@ class GameFragment : Fragment() {
     private var _bindingBackButtonWindow: BackButtonPopWindowBinding? = null
     private val bindingBackButtonWindow get() = _bindingBackButtonWindow
 
-    private lateinit var mPreferences: SharedPreferences
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,21 +45,15 @@ class GameFragment : Fragment() {
             inflater, R.layout.fragment_game, container, false
         )
 
-        mPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
-        val language =
-            mPreferences.getString(getString(R.string.key_guessWords_Language_Active), "en")
-
         val args = GameFragmentArgs.fromBundle(requireArguments())
 
-        binding.teamOneName.text = args.teamOneName
-        binding.teamTwoName.text = args.teamTwoName
+        Log.e("GameFragment", args.newGameSettings.toString())
+
+        binding.teamOneName.text = args.newGameSettings.teamOneName
+        binding.teamTwoName.text = args.newGameSettings.teamTwoName
 
         viewModelFactory = GameViewModelFactory(
-            args.roundTime,
-            args.skipAvailable,
-            args.pointsLimit,
-            args.vibration,
-            language!!
+            args.newGameSettings
         )
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(GameViewModel::class.java)
@@ -72,7 +64,7 @@ class GameFragment : Fragment() {
         binding.pauseButton.setOnClickListener { view: View ->
             view.findNavController().navigate(
                 GameFragmentDirections.actionGameFragmentToPauseScreenFragment(
-                    args.teamOneName, args.teamTwoName, viewModel.teamOneScore.value ?: 0,
+                    args.newGameSettings.teamOneName, args.newGameSettings.teamTwoName, viewModel.teamOneScore.value ?: 0,
                     viewModel.teamTwoScore.value ?: 0, viewModel.currentTimeString.value ?: "00:00"
                 )
             )
@@ -105,7 +97,7 @@ class GameFragment : Fragment() {
                 view?.findNavController()
                     ?.navigate(
                         GameFragmentDirections.actionGameFragmentToGameFinishedFragment(
-                            args.teamOneName, args.teamTwoName, viewModel.teamOneScore.value ?: 0,
+                            args.newGameSettings.teamOneName, args.newGameSettings.teamTwoName, viewModel.teamOneScore.value ?: 0,
                             viewModel.teamTwoScore.value ?: 0
                         )
                     )
