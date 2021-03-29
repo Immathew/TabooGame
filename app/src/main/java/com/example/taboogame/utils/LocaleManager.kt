@@ -1,4 +1,4 @@
-package com.example.taboogame
+package com.example.taboogame.utils
 
 import android.content.Context
 import android.content.res.Configuration

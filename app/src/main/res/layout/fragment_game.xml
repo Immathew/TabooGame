@@ -13,9 +13,9 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
 
         <TextView
@@ -23,10 +23,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:background="@android:color/transparent"
             android:text="@{@string/score_format(gameViewModel.teamOneScore)}"
             android:textSize="36sp"
             android:textStyle="bold"
-            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="@+id/timer_text"
             app:layout_constraintEnd_toStartOf="@+id/timer_text"
             app:layout_constraintHorizontal_bias="0.789"
@@ -38,10 +38,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
             android:text="@{@string/score_format(gameViewModel.teamTwoScore)}"
             android:textSize="36sp"
             android:textStyle="bold"
-            android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="@+id/timer_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.211"
@@ -55,14 +55,40 @@
             android:layout_marginTop="24dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
-            android:foreground="?android:attr/selectableItemBackground"
             android:contentDescription="@string/pause_button"
+            android:foreground="?android:attr/selectableItemBackground"
             android:scaleType="fitCenter"
             android:src="@drawable/pause_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timer_text" />
+
+        <TextView
+            android:id="@+id/activeTeam_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:background="@color/transparent"
+            android:text="Gra: "
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/wordsToGuess_cardView"
+            app:layout_constraintStart_toStartOf="@id/wordsToGuess_cardView"
+            app:layout_constraintTop_toBottomOf="@id/pause_button" />
+
+        <TextView
+            android:id="@+id/activeTeamName_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:background="@color/transparent"
+            android:text="Team 1 "
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/activeTeam_textView"
+            app:layout_constraintStart_toEndOf="@id/activeTeam_textView"
+            app:layout_constraintTop_toBottomOf="@id/pause_button"
+            app:layout_constraintTop_toTopOf="@id/activeTeam_textView" />
 
         <ImageView
             android:id="@+id/logoImage"
@@ -72,27 +98,26 @@
             app:layout_constraintBottom_toTopOf="@+id/skip_word_button"
             app:layout_constraintEnd_toEndOf="@id/pause_button"
             app:layout_constraintStart_toStartOf="@id/pause_button"
-            app:layout_constraintTop_toBottomOf="@id/pause_button"
-            />
+            app:layout_constraintTop_toBottomOf="@id/pause_button" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/wordsToGuess_cardView"
             android:layout_width="270dp"
             android:layout_height="300dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toTopOf="@+id/skip_word_button"
             app:layout_constraintEnd_toEndOf="@id/pause_button"
             app:layout_constraintStart_toStartOf="@id/pause_button"
             app:layout_constraintTop_toBottomOf="@id/pause_button"
-            app:strokeWidth="4dp"
             app:strokeColor="@color/white"
-            app:cardCornerRadius="10dp">
+            app:strokeWidth="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_margin="5dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/word_to_guess"
@@ -113,8 +138,7 @@
                     android:background="@android:color/transparent"
                     android:text="@string/forbidden_words_header"
                     android:textSize="14sp"
-                    android:textStyle="italic"
-                     />
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/forbidden_word_one"
@@ -155,7 +179,7 @@
                     android:background="@android:color/transparent"
                     android:text="@{gameViewModel.guessWord.forbiddenWordThree}"
                     android:textSize="18sp"
-                     tools:text="TextView" />
+                    tools:text="TextView" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -165,25 +189,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:background="@android:color/transparent"
             android:text="@{gameViewModel.currentTimeString}"
             android:textSize="30sp"
             android:textStyle="bold"
-            tools:text="00:00"
-            android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="00:00" />
 
         <ImageButton
             android:id="@+id/next_word_button"
             android:layout_width="60dp"
             android:layout_height="56dp"
-            android:background="@android:color/transparent"
             android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
+            android:foreground="?android:attr/selectableItemBackground"
             android:scaleType="fitCenter"
             android:src="@drawable/check"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="@{()-> gameViewModel.nextWord()}"
             app:layout_constraintBottom_toBottomOf="@+id/skip_word_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/skip_word_button" />
@@ -196,10 +219,9 @@
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:clickable="false"
-            android:onClick="@{()-> gameViewModel.skipWord()}"
+            android:foreground="?android:attr/selectableItemBackground"
             android:scaleType="fitCenter"
             android:src="@drawable/undo"
-            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -209,41 +231,40 @@
             android:id="@+id/skip_word_minus_point_button"
             android:layout_width="60dp"
             android:layout_height="56dp"
-            android:background="@android:color/transparent"
             android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/remove"
-            android:elevation="30dp"
+            android:background="@android:color/transparent"
             android:clickable="true"
+            android:elevation="30dp"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="@{()-> gameViewModel.skipWordAndLosePoint()}"
+            android:scaleType="fitCenter"
+            android:src="@drawable/remove"
             app:layout_constraintBottom_toBottomOf="@+id/skip_word_button"
             app:layout_constraintEnd_toStartOf="@+id/skip_word_button"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/team_one_name"
-            android:ellipsize="end"
-            android:maxLines="1"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@string/team_one_name"
             android:textSize="18sp"
-            android:background="@android:color/transparent"
             app:layout_constraintEnd_toStartOf="@+id/team_one_score_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/team_one_score_text" />
 
         <TextView
             android:id="@+id/team_two_name"
-            android:ellipsize="end"
-            android:maxLines="1"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@string/team_two_name"
             android:textSize="18sp"
-            android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/team_two_score_text"
             app:layout_constraintTop_toTopOf="@+id/team_two_score_text" />
@@ -253,20 +274,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            tools:text="3"
-            android:textStyle="bold"
             android:background="@android:color/transparent"
             android:text="@{@string/score_format(gameViewModel.teamOneWordsSkipped)}"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/skip_points_image"
             app:layout_constraintStart_toStartOf="@+id/team_one_name"
-            app:layout_constraintTop_toBottomOf="@+id/team_one_name" />
+            app:layout_constraintTop_toBottomOf="@+id/team_one_name"
+            tools:text="3" />
 
         <ImageView
             android:id="@+id/skip_points_image"
             android:layout_width="23dp"
             android:layout_height="24dp"
-            android:background="@android:color/transparent"
             android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             android:src="@drawable/undo"
             app:layout_constraintBottom_toBottomOf="@+id/team_one_skip_points_text"
@@ -277,8 +298,8 @@
             android:id="@+id/skip_points_image2"
             android:layout_width="23dp"
             android:layout_height="24dp"
-            android:background="@android:color/transparent"
             android:adjustViewBounds="true"
+            android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             android:src="@drawable/undo"
             app:layout_constraintBottom_toBottomOf="@+id/team_two_skip_points_text"
@@ -290,15 +311,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:textStyle="bold"
             android:background="@android:color/transparent"
             android:text="@{@string/score_format(gameViewModel.teamTwoWordsSkipped)}"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/team_two_name"
             app:layout_constraintStart_toEndOf="@+id/skip_points_image2"
             app:layout_constraintTop_toBottomOf="@id/team_two_name"
             tools:text="3" />
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

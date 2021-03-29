@@ -1,30 +1,34 @@
 package com.example.taboogame.game
 
-import android.annotation.SuppressLint
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.app.AlertDialog
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.taboogame.R
 import com.example.taboogame.databinding.BackButtonPopWindowBinding
 import com.example.taboogame.databinding.FragmentGameBinding
 import com.example.taboogame.databinding.NextRoundPopupWindowBinding
 
+
 class GameFragment : Fragment() {
 
+    private val args by navArgs<GameFragmentArgs>()
     private lateinit var viewModel: GameViewModel
     private lateinit var viewModelFactory: GameViewModelFactory
 
@@ -45,10 +49,6 @@ class GameFragment : Fragment() {
             inflater, R.layout.fragment_game, container, false
         )
 
-        val args = GameFragmentArgs.fromBundle(requireArguments())
-
-        Log.e("GameFragment", args.newGameSettings.toString())
-
         binding.teamOneName.text = args.newGameSettings.teamOneName
         binding.teamTwoName.text = args.newGameSettings.teamTwoName
 
@@ -64,8 +64,11 @@ class GameFragment : Fragment() {
         binding.pauseButton.setOnClickListener { view: View ->
             view.findNavController().navigate(
                 GameFragmentDirections.actionGameFragmentToPauseScreenFragment(
-                    args.newGameSettings.teamOneName, args.newGameSettings.teamTwoName, viewModel.teamOneScore.value ?: 0,
-                    viewModel.teamTwoScore.value ?: 0, viewModel.currentTimeString.value ?: "00:00"
+                    args.newGameSettings.teamOneName,
+                    args.newGameSettings.teamTwoName,
+                    viewModel.teamOneScore.value ?: 0,
+                    viewModel.teamTwoScore.value ?: 0,
+                    viewModel.currentTimeString.value ?: "00:00"
                 )
             )
             viewModel.timer.cancel()
@@ -97,7 +100,9 @@ class GameFragment : Fragment() {
                 view?.findNavController()
                     ?.navigate(
                         GameFragmentDirections.actionGameFragmentToGameFinishedFragment(
-                            args.newGameSettings.teamOneName, args.newGameSettings.teamTwoName, viewModel.teamOneScore.value ?: 0,
+                            args.newGameSettings.teamOneName,
+                            args.newGameSettings.teamTwoName,
+                            viewModel.teamOneScore.value ?: 0,
                             viewModel.teamTwoScore.value ?: 0
                         )
                     )
@@ -116,10 +121,73 @@ class GameFragment : Fragment() {
                 backButtonPopUpWindow()
             }
 
+        val scale = requireActivity().resources.displayMetrics.density
+        binding.wordsToGuessCardView.cameraDistance = (3000F * scale)
+
+        val goodAnswerAnimation: ObjectAnimator =
+            ObjectAnimator.ofFloat(binding.wordsToGuessCardView, "rotationY", 360f)
+        val goodAnswerAnimationColor: ObjectAnimator = ObjectAnimator.ofArgb(
+            binding.wordsToGuessCardView,
+            "strokeColor",
+            ContextCompat.getColor(requireContext(), R.color.blue),
+            ContextCompat.getColor(requireContext(), R.color.white)
+        )
+
+        binding.nextWordButton.setOnClickListener {
+            AnimatorSet().apply {
+                playTogether(
+                    goodAnswerAnimation,
+                    goodAnswerAnimationColor
+                )
+                duration = 700
+                start()
+            }
+            viewModel.nextWord()
+        }
+
+        val badAnswerAnimation: ObjectAnimator =
+            ObjectAnimator.ofFloat(binding.wordsToGuessCardView, "rotationY", 360f, 0f)
+        val badAnswerAnimationColor: ObjectAnimator = ObjectAnimator.ofArgb(
+            binding.wordsToGuessCardView,
+            "strokeColor",
+            ContextCompat.getColor(requireContext(), R.color.red),
+            ContextCompat.getColor(requireContext(), R.color.white)
+        )
+        binding.skipWordMinusPointButton.setOnClickListener {
+            AnimatorSet().apply {
+                playTogether(
+                    badAnswerAnimation,
+                    badAnswerAnimationColor
+                )
+                duration = 700
+                start()
+            }
+            viewModel.skipWordAndLosePoint()
+        }
+
+        val skipAnswerAnimation: ObjectAnimator =
+            ObjectAnimator.ofFloat(binding.wordsToGuessCardView, "rotationX", 360f, 0f)
+        val skipAnswerAnimationColor: ObjectAnimator = ObjectAnimator.ofArgb(
+            binding.wordsToGuessCardView,
+            "strokeColor",
+            ContextCompat.getColor(requireContext(), R.color.yellow),
+            ContextCompat.getColor(requireContext(), R.color.white)
+        )
+        binding.skipWordButton.setOnClickListener {
+            AnimatorSet().apply {
+                playTogether(
+                    skipAnswerAnimation,
+                    skipAnswerAnimationColor
+                )
+
+                duration = 700
+                start()
+            }
+            viewModel.skipWord()
+        }
         return binding.root
     }
 
-    @SuppressLint("InflateParams", "SetTextI18n")
     private fun nextRoundPopUpWindow() {
         _bindingNextRoundWindow =
             NextRoundPopupWindowBinding.inflate(LayoutInflater.from(context))
@@ -195,6 +263,11 @@ class GameFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        if (viewModel.teamOneActive) {
+            binding.activeTeamNameTextView.text = args.newGameSettings.teamOneName
+        } else {
+            binding.activeTeamNameTextView.text = args.newGameSettings.teamTwoName
+        }
         viewModel.timer.start()
     }
 

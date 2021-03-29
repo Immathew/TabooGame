@@ -17,7 +17,7 @@ class PauseScreenFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding: FragmentPauseScreenBinding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_pause_screen, container, false)
 
@@ -51,7 +51,7 @@ class PauseScreenFragment : Fragment() {
         binding.timerText.text = args.currentTime
         binding.teamOneScoreText.text = args.teamOneScore.toString()
         binding.teamTwoScoreText.text = args.teamTwoScore.toString()
-        binding.teamTwoNameInPause.text = args.teamOneName
+        binding.teamOneNameInPause.text = args.teamOneName
         binding.teamTwoNameInPause.text = args.teamTwoName
     }
 

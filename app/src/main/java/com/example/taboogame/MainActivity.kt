@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import com.example.taboogame.databinding.ActivityMainBinding
+import com.example.taboogame.utils.LocaleManager
 
 
 class MainActivity : AppCompatActivity() {

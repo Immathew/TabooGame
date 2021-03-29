@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.taboogame.databinding.AppLanguageOptionsWindowBinding
 import com.example.taboogame.databinding.FragmentSettingsBinding
 import com.example.taboogame.databinding.GuessWordsLanguageWindowBinding
+import com.example.taboogame.utils.LocaleManager
 import java.util.*
 
 
