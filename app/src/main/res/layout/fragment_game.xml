@@ -64,85 +64,101 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/timer_text" />
 
-        <TextView
-            android:id="@+id/forbidden_words_header"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:text="@string/forbidden_words_header"
-            android:textSize="24sp"
-            android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/word_to_guess" />
+        <ImageView
+            android:id="@+id/logoImage"
+            android:layout_width="270dp"
+            android:layout_height="300dp"
+            android:src="@drawable/starting_screen"
+            app:layout_constraintBottom_toTopOf="@+id/skip_word_button"
+            app:layout_constraintEnd_toEndOf="@id/pause_button"
+            app:layout_constraintStart_toStartOf="@id/pause_button"
+            app:layout_constraintTop_toBottomOf="@id/pause_button"
+            />
 
-        <TextView
-            android:id="@+id/forbidden_word_one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@{gameViewModel.guessWord.forbiddenWordOne}"
-            android:textAllCaps="false"
-            android:textSize="20sp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/forbidden_words_header"
-            tools:text="TextView" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/wordsToGuess_cardView"
+            android:layout_width="270dp"
+            android:layout_height="300dp"
+            app:layout_constraintBottom_toTopOf="@+id/skip_word_button"
+            app:layout_constraintEnd_toEndOf="@id/pause_button"
+            app:layout_constraintStart_toStartOf="@id/pause_button"
+            app:layout_constraintTop_toBottomOf="@id/pause_button"
+            app:strokeWidth="4dp"
+            app:strokeColor="@color/white"
+            app:cardCornerRadius="10dp">
 
-        <TextView
-            android:id="@+id/forbidden_word_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            tools:text="TextView"
-            android:text="@{gameViewModel.guessWord.forbiddenWordTwo}"
-            android:textSize="20sp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/forbidden_word_one" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="5dp"
+                android:gravity="center">
 
-        <TextView
-            android:id="@+id/forbidden_word_four"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@{gameViewModel.guessWord.forbiddenWordFour}"
-            android:textSize="20sp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/forbidden_word_three"
-            tools:text="TextView" />
+                <TextView
+                    android:id="@+id/word_to_guess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/transparent"
+                    android:text="@{gameViewModel.guessWord.wordToGuess}"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:text="TextView" />
 
-        <TextView
-            android:id="@+id/forbidden_word_three"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            tools:text="TextView"
-            android:text="@{gameViewModel.guessWord.forbiddenWordThree}"
-            android:textSize="20sp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/forbidden_word_two" />
+                <TextView
+                    android:id="@+id/forbidden_words_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14sp"
+                    android:background="@android:color/transparent"
+                    android:text="@string/forbidden_words_header"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                     />
 
-        <TextView
-            android:id="@+id/word_to_guess"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@{gameViewModel.guessWord.wordToGuess}"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pause_button"
-            tools:text="TextView" />
+                <TextView
+                    android:id="@+id/forbidden_word_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@android:color/transparent"
+                    android:text="@{gameViewModel.guessWord.forbiddenWordOne}"
+                    android:textAllCaps="false"
+                    android:textSize="18sp"
+                    tools:text="TextView" />
+
+                <TextView
+                    android:id="@+id/forbidden_word_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@android:color/transparent"
+                    android:text="@{gameViewModel.guessWord.forbiddenWordTwo}"
+                    android:textSize="18sp"
+                    tools:text="TextView" />
+
+                <TextView
+                    android:id="@+id/forbidden_word_four"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@android:color/transparent"
+                    android:text="@{gameViewModel.guessWord.forbiddenWordFour}"
+                    android:textSize="18sp"
+                    tools:text="TextView" />
+
+                <TextView
+                    android:id="@+id/forbidden_word_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@android:color/transparent"
+                    android:text="@{gameViewModel.guessWord.forbiddenWordThree}"
+                    android:textSize="18sp"
+                     tools:text="TextView" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/timer_text"
@@ -187,7 +203,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/forbidden_word_four" />
+            app:layout_constraintTop_toBottomOf="@+id/wordsToGuess_cardView" />
 
         <ImageButton
             android:id="@+id/skip_word_minus_point_button"

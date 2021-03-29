@@ -22,7 +22,7 @@ class GameConfigurationFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var newGameSettings = NewGameSettings(
-        6000L, 3, 20, "Team 1", "Team 2", false, "en"
+        60000L, 3, 20, "Team 1", "Team 2", false, "en"
     )
 
     override fun onCreateView(
@@ -56,7 +56,7 @@ class GameConfigurationFragment : Fragment() {
 
         //Set time buttons
         binding.oneMinuteChip.setOnClickListener {
-            newGameSettings.roundTime = 10000L
+            newGameSettings.roundTime = 60000L
         }
         binding.minuteAndHalfChip.setOnClickListener {
             newGameSettings.roundTime = 90000L

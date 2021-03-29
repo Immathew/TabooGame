@@ -14,9 +14,7 @@
             android:gravity="center"
             android:textSize="40sp"
             android:background="@android:color/transparent"
-            android:text="@string/end_round_header"
-            tools:layout_editor_absoluteX="172dp"
-            tools:layout_editor_absoluteY="162dp" />
+            android:text="@string/end_round_header"/>
 
         <TextView
             android:id="@+id/exit_confirmation"
@@ -24,13 +22,13 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="@string/do_you_want_to_exit_round"
-            android:layout_gravity="center_horizontal"
             android:layout_margin="16dp"
             android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal"
             android:background="@android:color/transparent">
 

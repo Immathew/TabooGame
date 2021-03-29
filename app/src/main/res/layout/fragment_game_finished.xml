@@ -69,8 +69,10 @@
 
         <Button
             android:id="@+id/play_again_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_shape"
             android:layout_marginTop="32dp"
             android:text="@string/play_again"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -79,6 +81,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/team_two_score"
             app:layout_constraintVertical_bias="0.29" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="225dp"
+            android:layout_height="248dp"
+            android:layout_marginBottom="4dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/game_finished"
+            app:layout_constraintBottom_toTopOf="@+id/end_game_header"
+            app:layout_constraintEnd_toEndOf="@+id/end_game_header"
+            app:layout_constraintHorizontal_bias="0.509"
+            app:layout_constraintStart_toStartOf="@+id/end_game_header" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

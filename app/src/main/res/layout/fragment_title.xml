@@ -6,8 +6,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".TitleFragment"
-        >
+        tools:context=".TitleFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -15,11 +14,12 @@
 
             <TextView
                 android:id="@+id/taboo_game_title"
+                style=""
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:text="@string/title"
                 android:textSize="36sp"
-                android:background="@android:color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -27,10 +27,12 @@
 
             <Button
                 android:id="@+id/start_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="151dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:background="@drawable/button_shape"
                 android:text="@string/start_button"
                 app:layout_constraintBottom_toTopOf="@id/rules_button"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -39,10 +41,12 @@
 
             <Button
                 android:id="@+id/settings_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="151dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:background="@drawable/button_shape"
                 android:text="@string/settings_button"
                 app:layout_constraintBottom_toTopOf="@id/rules_button"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -52,9 +56,11 @@
 
             <Button
                 android:id="@+id/rules_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="151dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/button_shape"
                 android:text="@string/rules_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
