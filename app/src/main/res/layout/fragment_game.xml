@@ -90,16 +90,6 @@
             app:layout_constraintTop_toBottomOf="@id/pause_button"
             app:layout_constraintTop_toTopOf="@id/activeTeam_textView" />
 
-        <ImageView
-            android:id="@+id/logoImage"
-            android:layout_width="270dp"
-            android:layout_height="300dp"
-            android:src="@drawable/starting_screen"
-            app:layout_constraintBottom_toTopOf="@+id/skip_word_button"
-            app:layout_constraintEnd_toEndOf="@id/pause_button"
-            app:layout_constraintStart_toStartOf="@id/pause_button"
-            app:layout_constraintTop_toBottomOf="@id/pause_button" />
-
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/wordsToGuess_cardView"
             android:layout_width="270dp"

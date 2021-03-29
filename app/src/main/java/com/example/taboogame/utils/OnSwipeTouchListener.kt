@@ -69,7 +69,6 @@ open class OnSwipeTouchListener(c: Context) : OnTouchListener {
             } catch (exception: Exception) {
                 exception.printStackTrace()
             }
-
             return result
         }
     }

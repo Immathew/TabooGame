@@ -2,6 +2,7 @@ package com.example.taboogame.game
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Build
 import android.os.Bundle
@@ -24,6 +25,7 @@ import com.example.taboogame.R
 import com.example.taboogame.databinding.BackButtonPopWindowBinding
 import com.example.taboogame.databinding.FragmentGameBinding
 import com.example.taboogame.databinding.NextRoundPopupWindowBinding
+import com.example.taboogame.utils.OnSwipeTouchListener
 
 
 class GameFragment : Fragment() {
@@ -41,6 +43,7 @@ class GameFragment : Fragment() {
     private var _bindingBackButtonWindow: BackButtonPopWindowBinding? = null
     private val bindingBackButtonWindow get() = _bindingBackButtonWindow
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -179,12 +182,53 @@ class GameFragment : Fragment() {
                     skipAnswerAnimation,
                     skipAnswerAnimationColor
                 )
-
                 duration = 700
                 start()
             }
             viewModel.skipWord()
         }
+
+        binding.wordsToGuessCardView.setOnTouchListener(object : OnSwipeTouchListener(requireContext()) {
+            override fun onSwipeRight() {
+                super.onSwipeRight()
+                AnimatorSet().apply {
+                    playTogether(
+                        goodAnswerAnimation,
+                        goodAnswerAnimationColor
+                    )
+                    duration = 700
+                    start()
+                }
+                viewModel.nextWord()
+            }
+
+            override fun onSwipeLeft() {
+                super.onSwipeLeft()
+                AnimatorSet().apply {
+                    playTogether(
+                        badAnswerAnimation,
+                        badAnswerAnimationColor
+                    )
+                    duration = 700
+                    start()
+                }
+                viewModel.skipWordAndLosePoint()
+            }
+
+            override fun onSwipeDown() {
+                super.onSwipeDown()
+                AnimatorSet().apply {
+                    playTogether(
+                        skipAnswerAnimation,
+                        skipAnswerAnimationColor
+                    )
+                    duration = 700
+                    start()
+                }
+                viewModel.skipWord()
+            }
+        })
+
         return binding.root
     }
 
