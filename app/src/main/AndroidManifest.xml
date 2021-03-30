@@ -12,7 +12,7 @@
         android:label="@string/title"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TabooGame">
+        android:theme="@style/splashScreenStyle">
         <activity
             android:name=".MainActivity"
             android:label="Taboo"
