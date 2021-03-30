@@ -35,6 +35,18 @@
     <string name="select_language">Język aplikacji</string>
     <string name="select_one_to_change_app_language">Wybierz nowy język aplikacji</string>
     <string name="select_one_to_change_guess_words_language">Wybierz nowy język słów do zgadywania</string>
+    <string name="active_team">Gra Druzyna:</string>
+    <string name="application_icon_image">Obrazek aplikacji</string>
+    <string name="game_over_image">koniec gry obrazek</string>
+    <string name="points_earned">Zdobyte punkty</string>
+    <string name="country_flag">Flaga kraju</string>
+    <string name="uk_flag">Flaga Wielkiej Brytanii</string>
+    <string name="poland_flag">Flaga Polski</string>
+    <string name="spain_flag">Flaga Hiszpani</string>
+    <string name="good_answer_button">Dobra odpowiedź przycisk</string>
+    <string name="skip_button">Pomiń przycisk</string>
+    <string name="skip_and_lose_point_button">Pomin i strać punkt przycisk</string>
+    <string name="skips_available">Dostępne pominięcia</string>
 
 
 </resources>

@@ -109,9 +109,9 @@
                     style="@style/CustomChipStyle"
                     android:layout_width="@dimen/chipWidth"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginStart="@dimen/chipMarginStart"
                     android:checked="true"
+                    android:gravity="center"
                     android:text="@string/skip_3" />
 
                 <com.google.android.material.chip.Chip

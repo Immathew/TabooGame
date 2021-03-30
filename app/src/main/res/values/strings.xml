@@ -52,7 +52,18 @@
     <string name="cancel">Cancel</string>
     <string name="select_one_to_change_app_language">Select to change app language</string>
     <string name="select_one_to_change_guess_words_language">Select one to change guessing words language</string>
-    <string name="active_team">Gra drużyna:</string>
+    <string name="active_team">Active Team:</string>
+    <string name="application_icon_image">Application icon image</string>
+    <string name="game_over_image">Game over image</string>
+    <string name="points_earned">Points Earned</string>
+    <string name="country_flag">Country flag</string>
+    <string name="uk_flag">Uk flag</string>
+    <string name="poland_flag">Poland flag</string>
+    <string name="spain_flag">Spain flag</string>
+    <string name="good_answer_button">Good answer button</string>
+    <string name="skip_button">Skip button</string>
+    <string name="skip_and_lose_point_button">Skip and lose point button</string>
+    <string name="skips_available">Skips available</string>
 
 
 </resources>

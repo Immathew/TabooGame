@@ -14,8 +14,8 @@
             android:id="@+id/end_game_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/end_game_header"
             android:background="@android:color/transparent"
+            android:text="@string/end_game_header"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -40,21 +40,33 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@android:color/transparent"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/team_one_name"
             tools:text="25" />
 
         <TextView
+            android:id="@+id/teamOneScore_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@android:color/transparent"
+            android:text="@string/points_earned"
+            app:layout_constraintBottom_toBottomOf="@+id/team_one_score"
+            app:layout_constraintEnd_toStartOf="@id/team_one_score"
+            app:layout_constraintTop_toTopOf="@+id/team_one_score" />
+
+        <TextView
             android:id="@+id/team_two_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            tools:text="type_team_two_name"
             android:background="@android:color/transparent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/team_one_score" />
+            app:layout_constraintTop_toBottomOf="@+id/team_one_score"
+            tools:text="type_team_two_name" />
 
         <TextView
             android:id="@+id/team_two_score"
@@ -62,18 +74,30 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@android:color/transparent"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/team_two_name"
             tools:text="25" />
+
+        <TextView
+            android:id="@+id/teamTwoScore_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@android:color/transparent"
+            android:text="@string/points_earned"
+            app:layout_constraintBottom_toBottomOf="@+id/team_two_score"
+            app:layout_constraintEnd_toStartOf="@id/team_two_score"
+            app:layout_constraintTop_toTopOf="@+id/team_two_score" />
 
         <Button
             android:id="@+id/play_again_button"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_shape"
             android:layout_marginTop="32dp"
+            android:background="@drawable/button_shape"
             android:text="@string/play_again"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,6 +112,7 @@
             android:layout_height="248dp"
             android:layout_marginBottom="4dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/game_over_image"
             android:src="@drawable/game_finished"
             app:layout_constraintBottom_toTopOf="@+id/end_game_header"
             app:layout_constraintEnd_toEndOf="@+id/end_game_header"

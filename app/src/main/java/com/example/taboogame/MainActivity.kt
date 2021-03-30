@@ -2,7 +2,6 @@ package com.example.taboogame
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Resources
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -26,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         if (mPreferences.getBoolean(getString(R.string.key_isNightThemeActive), false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
 
     }
 

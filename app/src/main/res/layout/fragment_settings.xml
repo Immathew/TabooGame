@@ -13,9 +13,10 @@
             android:layout_width="55dp"
             android:layout_height="35dp"
             android:layout_marginEnd="24dp"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/country_flag"
             android:clickable="true"
             android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="@+id/guess_words_language"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guess_words_language"
@@ -27,8 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="@string/vibration"
             android:background="@android:color/transparent"
+            android:text="@string/vibration"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,9 +40,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:background="@android:color/transparent"
             android:text="@string/app_language"
             android:textSize="24sp"
-            android:background="@android:color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/vibration_text" />
 
@@ -51,9 +52,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:background="@android:color/transparent"
             android:text="@string/guess_words_language"
             android:textSize="24sp"
-            android:background="@android:color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/app_language" />
 
@@ -63,9 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
+            android:background="@android:color/transparent"
             android:text="@string/dark_theme"
             android:textSize="24sp"
-            android:background="@android:color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/guess_words_language" />
 
@@ -94,9 +95,10 @@
             android:layout_width="55dp"
             android:layout_height="35dp"
             android:layout_marginEnd="24dp"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/country_flag"
             android:clickable="true"
             android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="@+id/app_language"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/app_language"

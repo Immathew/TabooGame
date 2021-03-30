@@ -2,10 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".game.GameFragment"
-    >
+    tools:context=".game.GameFragment">
 
     <data>
+
         <variable
             name="gameViewModel"
             type="com.example.taboogame.game.GameViewModel" />
@@ -52,7 +52,7 @@
             android:id="@+id/pause_button"
             android:layout_width="69dp"
             android:layout_height="63dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:contentDescription="@string/pause_button"
@@ -82,20 +82,20 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:background="@color/transparent"
-            android:text="Team 1 "
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/activeTeam_textView"
             app:layout_constraintStart_toEndOf="@id/activeTeam_textView"
             app:layout_constraintTop_toBottomOf="@id/pause_button"
-            app:layout_constraintTop_toTopOf="@id/activeTeam_textView" />
+            app:layout_constraintTop_toTopOf="@id/activeTeam_textView"
+            tools:text="Team 1 " />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/wordsToGuess_cardView"
             android:layout_width="270dp"
             android:layout_height="300dp"
-            app:cardCornerRadius="10dp"
             android:layout_marginTop="3dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintBottom_toTopOf="@+id/skip_word_button"
             app:layout_constraintEnd_toEndOf="@id/pause_button"
             app:layout_constraintStart_toStartOf="@id/pause_button"
@@ -195,6 +195,7 @@
             android:layout_height="56dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/good_answer_button"
             android:foreground="?android:attr/selectableItemBackground"
             android:scaleType="fitCenter"
             android:src="@drawable/check"
@@ -209,6 +210,7 @@
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:clickable="false"
+            android:contentDescription="@string/skip_button"
             android:foreground="?android:attr/selectableItemBackground"
             android:scaleType="fitCenter"
             android:src="@drawable/undo"
@@ -224,6 +226,7 @@
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:clickable="true"
+            android:contentDescription="@string/skip_and_lose_point_button"
             android:elevation="30dp"
             android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground"
@@ -278,6 +281,7 @@
             android:layout_height="24dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/skips_available"
             android:scaleType="fitCenter"
             android:src="@drawable/undo"
             app:layout_constraintBottom_toBottomOf="@+id/team_one_skip_points_text"
@@ -290,6 +294,7 @@
             android:layout_height="24dp"
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/skips_available"
             android:scaleType="fitCenter"
             android:src="@drawable/undo"
             app:layout_constraintBottom_toBottomOf="@+id/team_two_skip_points_text"

@@ -12,38 +12,38 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="123dp"
-            android:text="@string/select_language"
+            android:background="@color/transparent"
             android:gravity="center"
+            android:text="@string/select_language"
             android:textSize="40sp"
-            android:textStyle="bold"
-
-            />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/select_one_to_change_app_language"
-            android:gravity="center"
+            android:layout_margin="8dp"
             android:background="@android:color/transparent"
-            android:layout_margin="8dp" />
+            android:gravity="center"
+            android:text="@string/select_one_to_change_app_language" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:background="@android:color/transparent"
             android:gravity="center"
-            android:background="@android:color/transparent">
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/english_button_appLanguage"
                 android:layout_width="55dp"
                 android:layout_height="61dp"
                 android:layout_margin="8dp"
-                android:elevation="10dp"
+                android:background="@android:color/transparent"
                 android:clickable="true"
+                android:contentDescription="@string/uk_flag"
+                android:elevation="10dp"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:background="@android:color/transparent"
                 app:srcCompat="@drawable/ic_flag_of_uk"
                 tools:layout_editor_absoluteX="222dp"
                 tools:layout_editor_absoluteY="144dp" />
@@ -53,23 +53,24 @@
                 android:layout_width="55dp"
                 android:layout_height="61dp"
                 android:layout_margin="8dp"
+                android:background="@android:color/transparent"
                 android:clickable="true"
+                android:contentDescription="@string/poland_flag"
                 android:focusable="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:background="@android:color/transparent"
                 app:srcCompat="@drawable/ic_flag_of_poland_2"
                 tools:layout_editor_absoluteX="115dp"
                 tools:layout_editor_absoluteY="144dp" />
-
         </LinearLayout>
-
 
         <Button
             android:id="@+id/cancel_button_in_appLanguage"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="189dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="8dp"
+            android:background="@drawable/button_shape"
             android:text="@string/cancel" />
 
     </LinearLayout>

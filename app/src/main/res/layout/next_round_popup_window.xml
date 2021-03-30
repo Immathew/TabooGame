@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
         <TextView
             android:id="@+id/next_round_header"
             android:layout_width="match_parent"
             android:layout_height="123dp"
+            android:background="@android:color/transparent"
             android:gravity="center"
-            android:textSize="40sp"
-            android:textStyle="bold"
             android:text="@string/end_round_header_text"
-            android:background="@android:color/transparent" />
+            android:textSize="40sp"
+            android:textStyle="bold" />
 
 
         <LinearLayout
@@ -31,20 +31,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/team"
                 android:layout_marginEnd="5dp"
-                android:textSize="16sp"
-                android:background="@android:color/transparent" />
+                android:background="@android:color/transparent"
+                android:text="@string/team"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/active_team_name_popUpWindow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@android:color/transparent"
                 android:textSize="16sp"
-                tools:text="Team 1"
                 android:textStyle="bold"
-                android:background="@android:color/transparent" />
+                tools:text="Team 1" />
         </LinearLayout>
 
         <LinearLayout
@@ -59,10 +59,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_marginEnd="5dp"
+                android:background="@android:color/transparent"
                 android:gravity="center_horizontal"
                 android:text="@string/earned_in_this_round"
-                android:textSize="16sp"
-                android:background="@android:color/transparent" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/points_in_active_round"
@@ -70,11 +70,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="5dp"
+                android:background="@android:color/transparent"
                 android:gravity="center_horizontal"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                tools:text="30"
-                android:background="@android:color/transparent" />
+                tools:text="30" />
 
         </LinearLayout>
 
@@ -89,29 +89,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="16sp"
                 android:layout_marginEnd="5dp"
+                android:background="@android:color/transparent"
                 android:text="@string/next_team"
-                android:background="@android:color/transparent" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/next_team_popUp_window"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@android:color/transparent"
                 android:textSize="16sp"
-                tools:text="Team 2 "
                 android:textStyle="bold"
-                android:background="@android:color/transparent" />
+                tools:text="Team 2 " />
 
         </LinearLayout>
 
         <Button
             android:id="@+id/start_button_in_popUp_window"
-            android:layout_width="243dp"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="245dp"
             android:layout_height="75dp"
             android:layout_gravity="center"
             android:layout_margin="20dp"
+            android:background="@drawable/button_shape"
             android:text="@string/start_button" />
 
     </LinearLayout>
