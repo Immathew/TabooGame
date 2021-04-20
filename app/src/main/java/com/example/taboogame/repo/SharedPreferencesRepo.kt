@@ -2,8 +2,6 @@ package com.example.taboogame.repo
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 
 class SharedPreferencesRepo(context: Context) {
 

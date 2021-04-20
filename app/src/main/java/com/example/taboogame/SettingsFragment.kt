@@ -8,15 +8,17 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.taboogame.databinding.AppLanguageOptionsWindowBinding
 import com.example.taboogame.databinding.FragmentSettingsBinding
 import com.example.taboogame.databinding.GuessWordsLanguageWindowBinding
-import com.example.taboogame.repo.SharedPreferencesRepo
 import com.example.taboogame.utils.LocaleManager
 import java.util.*
 
 
 class SettingsFragment : Fragment() {
+
+    private lateinit var settingsViewModel: SettingsViewModel
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
@@ -27,7 +29,10 @@ class SettingsFragment : Fragment() {
     private var _bindingAppLanguage: AppLanguageOptionsWindowBinding? = null
     private val bindingAppLanguage get() = _bindingAppLanguage
 
-    private lateinit var mPreferences: SharedPreferencesRepo
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        settingsViewModel = ViewModelProvider(requireActivity()).get(SettingsViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,22 +42,20 @@ class SettingsFragment : Fragment() {
             inflater, R.layout.fragment_settings, container, false
         )
 
-        mPreferences = SharedPreferencesRepo(requireContext())
-
         setProperAppLanguageIcons(Locale.getDefault().language)
         setProperGuessWordsLanguageIcons()
 
         binding.vibrationSwitch.setOnCheckedChangeListener { _, isChecked ->
-            mPreferences.saveVibrationState(isChecked)
+            settingsViewModel.saveVibrationState(isChecked)
         }
 
         binding.darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
 
             if (isChecked) {
-                mPreferences.saveNightModeState(isChecked)
+                settingsViewModel.saveNightModeState(isChecked)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
-                mPreferences.saveNightModeState(isChecked)
+                settingsViewModel.saveNightModeState(isChecked)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
@@ -66,10 +69,10 @@ class SettingsFragment : Fragment() {
         }
 
         binding.vibrationSwitch.isChecked =
-            mPreferences.readVibrationState()
+            settingsViewModel.readVibrationState()
 
         binding.darkThemeSwitch.isChecked =
-            mPreferences.readNightModeState()
+            settingsViewModel.readNightModeState()
 
         return binding.root
     }
@@ -86,7 +89,7 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setProperGuessWordsLanguageIcons() {
-        when (mPreferences.readGuessWordsLanguageSettings()) {
+        when (settingsViewModel.readGuessWordsLanguageSettings()) {
             "en" -> {
                 binding.guessWordsLanguageButton.setImageResource(R.drawable.ic_flag_of_uk)
             }
@@ -135,19 +138,19 @@ class SettingsFragment : Fragment() {
         dialog?.show()
 
         bindingGuessWordsLanguage?.englishButtonGuessWordLanguage?.setOnClickListener {
-            mPreferences.saveGuessWordsLanguageSetting("en")
+            settingsViewModel.saveGuessWordsLanguageSetting("en")
             setProperGuessWordsLanguageIcons()
             dialog?.dismiss()
         }
 
         bindingGuessWordsLanguage?.polishButtonGuessWordLanguage?.setOnClickListener {
-            mPreferences.saveGuessWordsLanguageSetting("pl")
+            settingsViewModel.saveGuessWordsLanguageSetting("pl")
             setProperGuessWordsLanguageIcons()
             dialog.dismiss()
         }
 
         bindingGuessWordsLanguage?.spanishButtonGuessWordLanguage?.setOnClickListener {
-            mPreferences.saveGuessWordsLanguageSetting("es")
+            settingsViewModel.saveGuessWordsLanguageSetting("es")
             setProperGuessWordsLanguageIcons()
             dialog.dismiss()
         }
