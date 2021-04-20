@@ -2,6 +2,8 @@ package com.example.taboogame.repo
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 
 class SharedPreferencesRepo(context: Context) {
 
@@ -9,7 +11,6 @@ class SharedPreferencesRepo(context: Context) {
         androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
 
     private var mEditor: SharedPreferences.Editor = mPreferences.edit()
-
 
     fun saveVibrationState(isActive: Boolean) {
         mEditor.putBoolean(
@@ -39,20 +40,6 @@ class SharedPreferencesRepo(context: Context) {
             "Is_night_theme_active",
             false
         )
-    }
-
-    fun saveAppLanguageSettings(languageCode: String) {
-        mEditor.putString(
-            "App_language_active",
-            languageCode
-        )
-        mEditor.apply()
-    }
-
-    fun readAppLanguageSettings(): String {
-        return mPreferences.getString(
-            "App_language_active", "en"
-        )!!
     }
 
     fun saveGuessWordsLanguageSetting(languageCode: String) {

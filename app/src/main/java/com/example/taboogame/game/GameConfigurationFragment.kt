@@ -1,10 +1,13 @@
 package com.example.taboogame.game
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.taboogame.databinding.FragmentGameConfigurationBinding
 import com.example.taboogame.models.NewGameSettings
@@ -13,14 +16,15 @@ import com.example.taboogame.repo.SharedPreferencesRepo
 
 class GameConfigurationFragment : Fragment() {
 
-    private lateinit var mPreferences: SharedPreferencesRepo
+    private lateinit var gameConfigurationViewModel: GameConfigurationViewModel
 
     private var _binding: FragmentGameConfigurationBinding? = null
     private val binding get() = _binding!!
 
-    private var newGameSettings = NewGameSettings(
-        60000L, 3, 20, "Team 1", "Team 2", false, "en"
-    )
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        gameConfigurationViewModel = ViewModelProvider(requireActivity()).get(GameConfigurationViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,59 +32,58 @@ class GameConfigurationFragment : Fragment() {
     ): View {
         _binding = FragmentGameConfigurationBinding.inflate(layoutInflater, container, false)
 
-        mPreferences = SharedPreferencesRepo(requireContext())
-
-        newGameSettings.vibration = mPreferences.readVibrationState()
-        newGameSettings.language = mPreferences.readGuessWordsLanguageSettings()
+        binding.lifecycleOwner = this
 
         binding.startTheGameButton.setOnClickListener {
             addTeamNames()
             Navigation.findNavController(it)
                 .navigate(
                     GameConfigurationFragmentDirections.actionGameConfigurationFragmentToGameFragment(
-                        newGameSettings
+                        gameConfigurationViewModel.newGameSettings
                     )
                 )
         }
 
+        gameConfigurationViewModel.setLanguageAndVibration()
+
         //Set time buttons
         binding.oneMinuteChip.setOnClickListener {
-            newGameSettings.roundTime = 60000L
+            gameConfigurationViewModel.newGameSettings.roundTime = 60000L
         }
         binding.minuteAndHalfChip.setOnClickListener {
-            newGameSettings.roundTime = 90000L
+            gameConfigurationViewModel.newGameSettings.roundTime = 90000L
         }
         binding.twoMinutesChip.setOnClickListener {
-            newGameSettings.roundTime = 120000L
+            gameConfigurationViewModel.newGameSettings.roundTime = 120000L
         }
 
         //set skip buttons
         binding.skip3Chip.setOnClickListener {
-            newGameSettings.skipAvailable = 3
+            gameConfigurationViewModel.newGameSettings.skipAvailable = 3
         }
         binding.skip5Chip.setOnClickListener {
-            newGameSettings.skipAvailable = 5
+            gameConfigurationViewModel.newGameSettings.skipAvailable = 5
         }
         binding.skip10Chip.setOnClickListener {
-            newGameSettings.skipAvailable = 10
+            gameConfigurationViewModel.newGameSettings.skipAvailable = 10
         }
 
         //Set points limit buttons
         binding.points20LimitChip.setOnClickListener {
-            newGameSettings.pointsLimit = 20
+            gameConfigurationViewModel.newGameSettings.pointsLimit = 20
         }
         binding.points30LimitChip.setOnClickListener {
-            newGameSettings.pointsLimit = 30
+            gameConfigurationViewModel.newGameSettings.pointsLimit = 30
         }
         binding.points50LimitChip.setOnClickListener {
-            newGameSettings.pointsLimit = 50
+            gameConfigurationViewModel.newGameSettings.pointsLimit = 50
         }
 
         return binding.root
     }
 
     private fun addTeamNames() {
-        newGameSettings.teamOneName = binding.submitTeamOneName.text.toString()
-        newGameSettings.teamTwoName = binding.submitTeamTwoName.text.toString()
+        gameConfigurationViewModel.newGameSettings.teamOneName = binding.submitTeamOneName.text.toString()
+        gameConfigurationViewModel.newGameSettings.teamTwoName = binding.submitTeamTwoName.text.toString()
     }
 }
