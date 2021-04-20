@@ -5,7 +5,6 @@
     tools:context=".game.GameFragment">
 
     <data>
-
         <variable
             name="gameViewModel"
             type="com.example.taboogame.game.GameViewModel" />
@@ -16,7 +15,6 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <TextView
             android:id="@+id/team_one_score_text"

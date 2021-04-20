@@ -46,7 +46,7 @@ class GameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentGameBinding.inflate(layoutInflater)
+        _binding = FragmentGameBinding.inflate(inflater, container, false)
 
         binding.teamOneName.text = args.newGameSettings.teamOneName
         binding.teamTwoName.text = args.newGameSettings.teamTwoName

@@ -1,7 +1,6 @@
 package com.example.taboogame
 
 import android.app.AlertDialog
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +11,12 @@ import androidx.fragment.app.Fragment
 import com.example.taboogame.databinding.AppLanguageOptionsWindowBinding
 import com.example.taboogame.databinding.FragmentSettingsBinding
 import com.example.taboogame.databinding.GuessWordsLanguageWindowBinding
+import com.example.taboogame.repo.SharedPreferencesRepo
 import com.example.taboogame.utils.LocaleManager
 import java.util.*
 
 
 class SettingsFragment : Fragment() {
-
-    private lateinit var mPreferences: SharedPreferences
-    private lateinit var mEditor: SharedPreferences.Editor
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
@@ -30,6 +27,8 @@ class SettingsFragment : Fragment() {
     private var _bindingAppLanguage: AppLanguageOptionsWindowBinding? = null
     private val bindingAppLanguage get() = _bindingAppLanguage
 
+    private lateinit var mPreferences: SharedPreferencesRepo
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -38,31 +37,22 @@ class SettingsFragment : Fragment() {
             inflater, R.layout.fragment_settings, container, false
         )
 
-        mPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
-        mEditor = mPreferences.edit()
+        mPreferences = SharedPreferencesRepo(requireContext())
 
-        val prefs = Locale.getDefault().language
-
-        setProperIcons(prefs)
+        setProperAppLanguageIcons(Locale.getDefault().language)
+        setProperGuessWordsLanguageIcons()
 
         binding.vibrationSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                mEditor.putBoolean(getString(R.string.key_isVibration_Active), isChecked)
-                mEditor.apply()
-            } else {
-                mEditor.putBoolean(getString(R.string.key_isVibration_Active), isChecked)
-                mEditor.apply()
-            }
+            mPreferences.saveVibrationState(isChecked)
         }
 
         binding.darkThemeSwitch.setOnCheckedChangeListener { _, isChecked ->
+
             if (isChecked) {
-                mEditor.putBoolean(getString(R.string.key_isNightThemeActive), isChecked)
-                mEditor.apply()
+                mPreferences.saveNightModeState(isChecked)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             } else {
-                mEditor.putBoolean(getString(R.string.key_isNightThemeActive), isChecked)
-                mEditor.apply()
+                mPreferences.saveNightModeState(isChecked)
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
@@ -76,15 +66,16 @@ class SettingsFragment : Fragment() {
         }
 
         binding.vibrationSwitch.isChecked =
-            mPreferences.getBoolean(getString(R.string.key_isVibration_Active), false)
+            mPreferences.readVibrationState()
+
         binding.darkThemeSwitch.isChecked =
-            mPreferences.getBoolean(getString(R.string.key_isNightThemeActive), false)
+            mPreferences.readNightModeState()
 
         return binding.root
     }
 
-    private fun setProperIcons(prefs: String) {
-        when (prefs) {
+    private fun setProperAppLanguageIcons(languageCode: String) {
+        when (languageCode) {
             "en" -> {
                 binding.appLanguageButton.setImageResource(R.drawable.ic_flag_of_uk)
             }
@@ -92,12 +83,10 @@ class SettingsFragment : Fragment() {
                 binding.appLanguageButton.setImageResource(R.drawable.ic_flag_of_poland_2)
             }
         }
+    }
 
-        val language = mPreferences.getString(
-            getString(R.string.key_guessWords_Language_Active),
-            "en"
-        )
-        when (language) {
+    private fun setProperGuessWordsLanguageIcons() {
+        when (mPreferences.readGuessWordsLanguageSettings()) {
             "en" -> {
                 binding.guessWordsLanguageButton.setImageResource(R.drawable.ic_flag_of_uk)
             }
@@ -146,23 +135,20 @@ class SettingsFragment : Fragment() {
         dialog?.show()
 
         bindingGuessWordsLanguage?.englishButtonGuessWordLanguage?.setOnClickListener {
-            mEditor.putString(getString(R.string.key_guessWords_Language_Active), "en")
-            mEditor.apply()
-            activity?.recreate()
+            mPreferences.saveGuessWordsLanguageSetting("en")
+            setProperGuessWordsLanguageIcons()
             dialog?.dismiss()
         }
 
         bindingGuessWordsLanguage?.polishButtonGuessWordLanguage?.setOnClickListener {
-            mEditor.putString(getString(R.string.key_guessWords_Language_Active), "pl")
-            mEditor.apply()
-            activity?.recreate()
+            mPreferences.saveGuessWordsLanguageSetting("pl")
+            setProperGuessWordsLanguageIcons()
             dialog.dismiss()
         }
 
         bindingGuessWordsLanguage?.spanishButtonGuessWordLanguage?.setOnClickListener {
-            mEditor.putString(getString(R.string.key_guessWords_Language_Active), "es")
-            mEditor.apply()
-            activity?.recreate()
+            mPreferences.saveGuessWordsLanguageSetting("es")
+            setProperGuessWordsLanguageIcons()
             dialog.dismiss()
         }
 

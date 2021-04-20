@@ -1,22 +1,19 @@
 package com.example.taboogame.game
 
-
-
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
-import com.example.taboogame.R
 import com.example.taboogame.databinding.FragmentGameConfigurationBinding
 import com.example.taboogame.models.NewGameSettings
+import com.example.taboogame.repo.SharedPreferencesRepo
 
 
 class GameConfigurationFragment : Fragment() {
 
-    private lateinit var mPreferences: SharedPreferences
+    private lateinit var mPreferences: SharedPreferencesRepo
 
     private var _binding: FragmentGameConfigurationBinding? = null
     private val binding get() = _binding!!
@@ -31,18 +28,10 @@ class GameConfigurationFragment : Fragment() {
     ): View {
         _binding = FragmentGameConfigurationBinding.inflate(layoutInflater, container, false)
 
-        mPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
-        val setVibration =
-            mPreferences.getBoolean(getString(R.string.key_isVibration_Active), false)
+        mPreferences = SharedPreferencesRepo(requireContext())
 
-        mPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
-        val setLanguage =
-            mPreferences.getString(getString(R.string.key_guessWords_Language_Active), "en")
-                .toString()
-
-        newGameSettings.vibration = setVibration
-        newGameSettings.language = setLanguage
-
+        newGameSettings.vibration = mPreferences.readVibrationState()
+        newGameSettings.language = mPreferences.readGuessWordsLanguageSettings()
 
         binding.startTheGameButton.setOnClickListener {
             addTeamNames()
