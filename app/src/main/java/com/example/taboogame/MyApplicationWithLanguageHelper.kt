@@ -1,9 +1,15 @@
-package com.example.taboogame.utils
+package com.example.taboogame
 
 import android.app.Application
 import android.content.Context
+import dagger.hilt.android.HiltAndroidApp
 
-class LanguageHelper: Application() {
+/**class for changing language in application
+ *
+ * Annotated with Hilt for dependencies*/
+
+@HiltAndroidApp
+class MyApplicationWithLanguageHelper: Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -22,7 +28,7 @@ class LanguageHelper: Application() {
     }
 
     companion object {
-        var instance: LanguageHelper? = null
+        var instance: MyApplicationWithLanguageHelper? = null
         const val PREFS: String = "SHARED_PREFS"
         const val LOCALE: String = "LOCALE"
     }

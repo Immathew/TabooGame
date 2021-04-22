@@ -13,9 +13,10 @@ import com.example.taboogame.databinding.AppLanguageOptionsWindowBinding
 import com.example.taboogame.databinding.FragmentSettingsBinding
 import com.example.taboogame.databinding.GuessWordsLanguageWindowBinding
 import com.example.taboogame.utils.LocaleManager
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
-
+@AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
     private lateinit var settingsViewModel: SettingsViewModel

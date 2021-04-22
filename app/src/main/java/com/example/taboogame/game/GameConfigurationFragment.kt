@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.taboogame.databinding.FragmentGameConfigurationBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class GameConfigurationFragment : Fragment() {
 
     private lateinit var gameConfigurationViewModel: GameConfigurationViewModel

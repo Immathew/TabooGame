@@ -11,6 +11,7 @@ import com.example.taboogame.data.WordsToGuessListENGLISH
 import com.example.taboogame.data.WordsToGuessListPOLISH
 import com.example.taboogame.data.WordsToGuessListSPANISH
 import com.example.taboogame.models.NewGameSettings
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 private val ADD_POINTS_BUZZ_PATTERN = longArrayOf(100, 100, 100)
 private val SUBTRACT_POINTS_PATTERN = longArrayOf(0, 100, 100, 100)

@@ -9,8 +9,9 @@ import androidx.databinding.DataBindingUtil
 import com.example.taboogame.databinding.ActivityMainBinding
 import com.example.taboogame.repo.SharedPreferencesRepo
 import com.example.taboogame.utils.LocaleManager
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

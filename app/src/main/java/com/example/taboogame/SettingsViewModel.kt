@@ -4,34 +4,39 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taboogame.repo.SharedPreferencesRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SettingsViewModel(application: Application): AndroidViewModel(application) {
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
+    private val sharedPreferencesRepo: SharedPreferencesRepo,
+    application: Application): AndroidViewModel(application) {
 
-    private val mPreferences =  SharedPreferencesRepo(application.applicationContext)
+//    private val mPreferences =  SharedPreferencesRepo(application.applicationContext)
 
     fun saveVibrationState(isActive: Boolean) = viewModelScope.launch{
-        mPreferences.saveVibrationState(isActive)
+        sharedPreferencesRepo.saveVibrationState(isActive)
     }
 
     fun saveNightModeState(isActive: Boolean) = viewModelScope.launch{
-        mPreferences.saveNightModeState(isActive)
+        sharedPreferencesRepo.saveNightModeState(isActive)
     }
 
     fun saveGuessWordsLanguageSetting(languageCode: String) = viewModelScope.launch {
-        mPreferences.saveGuessWordsLanguageSetting(languageCode)
+        sharedPreferencesRepo.saveGuessWordsLanguageSetting(languageCode)
     }
 
     fun readVibrationState(): Boolean {
-        return mPreferences.readVibrationState()
+        return sharedPreferencesRepo.readVibrationState()
     }
 
     fun readNightModeState(): Boolean {
-        return mPreferences.readNightModeState()
+        return sharedPreferencesRepo.readNightModeState()
     }
 
     fun readGuessWordsLanguageSettings(): String {
-        return mPreferences.readGuessWordsLanguageSettings()
+        return sharedPreferencesRepo.readGuessWordsLanguageSettings()
     }
 
 }

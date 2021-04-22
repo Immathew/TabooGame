@@ -2,8 +2,13 @@ package com.example.taboogame.repo
 
 import android.content.Context
 import android.content.SharedPreferences
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ViewModelScoped
+import javax.inject.Inject
 
-class SharedPreferencesRepo(context: Context) {
+@ViewModelScoped
+class SharedPreferencesRepo @Inject constructor(@ApplicationContext context: Context) {
 
     private var mPreferences: SharedPreferences =
         androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)

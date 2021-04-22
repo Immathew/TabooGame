@@ -24,8 +24,9 @@ import com.example.taboogame.databinding.BackButtonPopWindowBinding
 import com.example.taboogame.databinding.FragmentGameBinding
 import com.example.taboogame.databinding.NextRoundPopupWindowBinding
 import com.example.taboogame.utils.OnSwipeTouchListener
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class GameFragment : Fragment() {
 
     private val args by navArgs<GameFragmentArgs>()
