@@ -42,6 +42,15 @@ class GameFragment : Fragment() {
     private var _bindingBackButtonWindow: BackButtonPopWindowBinding? = null
     private val bindingBackButtonWindow get() = _bindingBackButtonWindow
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModelFactory = GameViewModelFactory(
+            args.newGameSettings
+        )
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(GameViewModel::class.java)
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,12 +60,6 @@ class GameFragment : Fragment() {
 
         binding.teamOneName.text = args.newGameSettings.teamOneName
         binding.teamTwoName.text = args.newGameSettings.teamTwoName
-
-        viewModelFactory = GameViewModelFactory(
-            args.newGameSettings
-        )
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(GameViewModel::class.java)
 
         binding.gameViewModel = viewModel
         binding.lifecycleOwner = this

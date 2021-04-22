@@ -2,22 +2,18 @@ package com.example.taboogame.game
 
 import android.os.CountDownTimer
 import android.text.format.DateUtils
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.taboogame.models.GuessWord
 import com.example.taboogame.data.WordsToGuessListENGLISH
 import com.example.taboogame.data.WordsToGuessListPOLISH
 import com.example.taboogame.data.WordsToGuessListSPANISH
 import com.example.taboogame.models.NewGameSettings
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 private val ADD_POINTS_BUZZ_PATTERN = longArrayOf(100, 100, 100)
 private val SUBTRACT_POINTS_PATTERN = longArrayOf(0, 100, 100, 100)
 private val NO_BUZZ_PATTERN = longArrayOf(0)
 
-class GameViewModel(
+class GameViewModel (
     newGameSettings: NewGameSettings
 ) : ViewModel() {
 
