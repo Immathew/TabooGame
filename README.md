@@ -8,6 +8,7 @@ Project is written in **Kotlin** with usage of:
 
 * MVVM
 * Kotlin Navigation
+* Dagger - Hilt
 * Live Data
 * Data Binding
 * Shared Preferences
